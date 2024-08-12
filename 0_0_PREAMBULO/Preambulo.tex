@@ -1,0 +1,341 @@
+% -----------------------------------
+% Configuración de Idioma y Fuente
+% -----------------------------------
+\usepackage[T1]{fontenc}
+\usepackage[spanish, es-tabla]{babel} % Configura el idioma a español y reemplaza "cuadro" por "tabla"
+\usepackage{newtxtext} % Utiliza la fuente de texto New Times-like
+
+
+% -----------------------------------
+% Gestión de Bibliografía
+% -----------------------------------
+\usepackage[style=apa, backend=biber]{biblatex}
+\addbibresource{3_3_BIBLIOGRAFIA/library.bib} % Carga la bibliografía desde el archivo 'library.bib'
+\usepackage{csquotes} % Mejora la presentación de citas en el texto
+
+\setcounter{tocdepth}{3} % Incluye hasta \paragraph en el índice
+
+
+% -----------------------------------
+% Configuración de Documento
+% -----------------------------------
+\setcounter{secnumdepth}{3} % Numera hasta las subsubsecciones
+\decimalpoint % Utiliza punto decimal en lugar de coma
+\usepackage{layouts} % Proporciona herramientas para mostrar el diseño del documento
+\usepackage{setspace} % Permite ajustar el espaciado entre líneas
+\usepackage[margin=1in]{geometry} % Configura los márgenes del documento
+ 
+
+% -----------------------------------
+% Manejo de Imágenes y Tablas
+% -----------------------------------
+\usepackage{graphicx} % Permite incluir imágenes
+\usepackage{changepage} % Facilita la adición de sangrías
+\usepackage{float} % Mejora la colocación de objetos flotantes como imágenes
+\usepackage{tabularx} % Permite crear tablas con anchos ajustables
+
+
+% -----------------------------------
+% Configuración de Encabezados y Pies de Página
+% -----------------------------------
+\usepackage{fancyhdr} % Permite personalizar encabezados y pies de página
+\pagestyle{fancy} % Aplica el estilo 'fancy' a las páginas
+
+
+% -----------------------------------
+% Otros Ajustes de Estilo y Formato
+% -----------------------------------
+\usepackage{lipsum} % Genera texto de relleno
+\renewcommand{\labelitemi}{$\bullet$} % Define círculos para las viñetas
+\usepackage{titlesec} % Personalización de títulos de secciones
+\usepackage{tocloft} % Personalización de índices
+\usepackage[colorlinks=true,linkcolor=negro,citecolor=negro]{hyperref} % Configura los enlaces dentro del documento
+
+
+% -----------------------------------
+% Configuración de Matemáticas y Diagramas
+% -----------------------------------
+\usepackage[mathbf=sym]{unicode-math} % Mantiene las fuentes matemáticas
+\usepackage{tikz} % Permite crear gráficos y diagramas
+\usetikzlibrary{calc,positioning,shapes.geometric,shapes.symbols,shapes.misc} % Carga bibliotecas adicionales para TikZ
+
+% Definiciones de estilos para los elementos de TikZ
+\tikzstyle{startstop} = [rectangle, rounded corners, minimum width=3cm, minimum height=0.5cm,text centered, draw=black]
+\tikzstyle{io} = [trapezium, trapezium left angle=70, trapezium right angle=110, minimum width=3cm, minimum height=0.5cm, text centered, text width=3cm, draw=black]
+\tikzstyle{process} = [rectangle, minimum width=3cm, minimum height=0.5cm, text centered, text width=4cm, draw=black]
+\tikzstyle{decision} = [diamond, minimum width=3cm, minimum height=0.5cm, text centered, draw=black]
+\tikzstyle{loop} = [chamfered rectangle,chamfered rectangle xsep=2cm,draw=black]
+\tikzstyle{arrow} = [->,>=stealth]
+\tikzstyle{line}=[draw]
+
+
+% -----------------------------------
+% Soporte para Código Fuente y Color
+% -----------------------------------
+\usepackage{listings} % Permite incluir código fuente
+\usepackage{color} % Permite definir y utilizar colores
+
+% Definición de nuevos colores
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.2,0,1}
+\definecolor{codeRojo}{rgb}{0.7,0,0.3}
+\definecolor{backcolour}{rgb}{1.0, 1.0, 1.0}
+
+
+% -----------------------------------
+% Configuraciones Adicionales y Personalizaciones
+% -----------------------------------
+\usepackage{ragged2e} % Proporciona comandos para alinear texto
+\usepackage{booktabs} % Mejora la calidad de las tablas
+\usepackage{xstring} % Proporciona funciones avanzadas de manipulación de cadenas
+\usepackage{multirow} % Mejora la creación de tablas con celdas que abarcan varias filas
+\usepackage{array} % Proporciona funciones adicionales para tablas
+\usepackage{subcaption} % Permite el uso de subfiguras y subtítulos
+\usepackage{chngcntr} % Permite ajustar la numeración de contadores
+\counterwithout{figure}{chapter} % Configura la numeración de figuras independientemente de los capítulos
+\makeatletter % Comando para reducir errores
+
+
+% -----------------------------------
+% Configuración de Estilo de Listado de Código
+% -----------------------------------
+% Definición de estilo personalizado para listados de código
+\lstdefinestyle{mystyle}{
+  backgroundcolor=\color{backcolour},  
+  commentstyle=\color{codegreen},
+  keywordstyle=\color{codeRojo},
+  numberstyle=\tiny\color{codegray},
+  stringstyle=\color{codepurple},
+  basicstyle=\footnotesize,
+  breakatwhitespace=false,         
+  breaklines=true,                 
+  captionpos=b,                    
+  keepspaces=true,                 
+  numbers=left,                    
+  numbersep=5pt,                  
+  showspaces=false,                
+  showstringspaces=false,
+  showtabs=false,                  
+  tabsize=2
+}
+
+\lstset{style=mystyle} % Aplica el estilo 'mystyle' a los listados de código
+
+
+% -----------------------------------
+% Ajustes de Formato de Documento
+% -----------------------------------
+\newenvironment{MyFont}{\fontfamily{ugm}\selectfont}{\par}
+\usepackage{changepage} % Agregar espacio a Listing
+\renewcommand{\cfttoctitlefont}{\hfill \normalfont\normalsize\bfseries} % Centrado del título del Índice
+\renewcommand{\cftaftertoctitle}{\hfill} % Alineación después del título del Índice
+\renewcommand{\cftlottitlefont}{\hfill\normalfont\normalsize\bfseries} % Centrado del título de la Lista de Tablas
+\renewcommand{\cftafterlottitle}{\hfill} % Alineación después del título de la Lista de Tablas
+\renewcommand{\cftloftitlefont}{\hfill\normalfont\normalsize\bfseries} % Centrado del título de la Lista de Figuras
+\renewcommand{\cftafterloftitle}{\hfill} % Alineación después del título de la Lista de Figuras
+
+
+% ------------------------------------
+% Espaciado entre Párrafos y Sangría
+% ------------------------------------
+\setlength{\parindent}{1.27cm} % Configura la sangría
+\doublespacing % Aplica doble espaciado en todo el documento
+% \usepackage[section]{placeins}
+
+
+% ------------------------------------
+% Cambio del Título de Bibliografía
+% ------------------------------------
+\addto\captionsspanish{\renewcommand{\bibname}{\centering Referencias bibliográficas}}
+
+
+% ------------------------------------
+% Posicionamiento Vertical de Índices
+% ------------------------------------
+% Ajustes para el espacio antes y después de los títulos en el Índice, Lista de Figuras y Lista de Tablas
+\setlength{\cftbeforelottitleskip}{1pt} % Espacio antes del título en la Lista de Tablas
+\renewcommand{\cftafterlottitleskip}{12pt} % Espacio después del título en la Lista de Tablas
+\setlength{\cftbeforeloftitleskip}{1pt} % Espacio antes del título en la Lista de Figuras
+\renewcommand{\cftafterloftitleskip}{12pt} % Espacio después del título en la Lista de Figuras
+\setlength{\cftbeforetoctitleskip}{16pt} % Espacio antes del título en el Índice
+\renewcommand{\cftaftertoctitleskip}{12pt} % Espacio después del título en el Índice
+
+
+% -------------------------------------
+% Configuración de Figuras
+% -------------------------------------
+% Ajustes de la nomenclatura y formato de las figuras
+\addto\captionsspanish{\renewcommand{\figurename}{Figura}} % Cambia el nombre de las figuras a "Figura"
+\captionsetup{ % Configuración del formato de las etiquetas para figuras
+   justification=raggedright, % Alineación a la izquierda
+   singlelinecheck=false, % Aplica justificación incluso para textos cortos
+   labelsep=period, % Punto después del número de figura
+   labelfont=bf % Texto "Figura Número" en negrita
+}
+
+% Comando personalizado para insertar figuras
+\newcommand{\insertfigure}[3]{
+    \begin{figure}[H] % Usa el entorno 'figure' con opción [H] para ubicación exacta
+    \caption{\doublespacing \\ \textit{#1}} % Título de la figura con doble espaciado y en cursiva
+    \centering % Centra la imagen
+    \includegraphics[width=0.7\linewidth]{#2} % Inserta la imagen
+    \begin{justify} % Justifica la descripción
+        \textit{Nota.} #3 % Descripción o nota asociada a la figura
+    \end{justify}
+    \label{fig:#1} % Etiqueta para referencia cruzada
+    \end{figure}
+}
+
+
+% -------------------------------------
+% Configuración de Tablas
+% -------------------------------------
+\counterwithout{table}{chapter} % Configura la numeración de tablas independiente de capítulos
+\addto\captionsspanish{\renewcommand{\tablename}{Tabla}} % Cambia el nombre de las tablas a "Tabla"
+\captionsetup[table]{ % Configuración del formato de las etiquetas para tablas
+   justification=raggedright, % Alineación a la izquierda
+   singlelinecheck=false, % Aplica justificación incluso para textos cortos
+   labelsep=period, % Punto después del número de tabla
+   labelfont=bf % Texto "Tabla Número" en negrita
+}
+
+\newcolumntype{P}[1]{>{\justifying\noindent\arraybackslash}p{#1}} % Nuevo tipo de columna para tablas
+
+% Define que las tablas sean numeradas con números arábigos
+\renewcommand{\thetable}{\arabic{table}}  
+
+
+% -------------------------------------
+% Espaciamiento y Nomenclatura en Índices
+% -------------------------------------
+% Ajustes para el espaciamiento y la nomenclatura en el Índice, Lista de Figuras y Lista de Tablas
+\setlength{\cftbeforechapskip}{2mm} % Espaciado antes de capítulos en el Índice
+\renewcommand\cftchapafterpnum{\vskip6pt} % Espaciado después de capítulos en el Índice
+\renewcommand\cftsecafterpnum{\vskip5pt} % Espaciado después de secciones en el Índice
+\renewcommand\cftsubsecafterpnum{\vskip5pt} % Espaciado después de subsecciones en el Índice
+
+\renewcommand{\cftchappresnum}{} % Elimina cualquier prefijo para el número del capítulo
+\renewcommand{\cftchapaftersnum}{. } % Añade un punto y un espacio después del número del capítulo
+\renewcommand{\cftfigpresnum}{Figura N° } % Prefijo "Figura N°" en la Lista de Figuras
+\renewcommand{\cftfigaftersnum}{.} % Separador después del número de figura
+\renewcommand{\cftfignumwidth}{6.85 em} % Ancho para el número de figura
+\renewcommand{\cfttabpresnum}{Tabla N° } % Prefijo "Tabla N°" en la Lista de Tablas
+\renewcommand{\cfttabnumwidth}{6.5 em} % Ancho para el número de tabla
+
+
+% ------------------------------------
+% Cambios en la Numeración de Capítulos
+% ------------------------------------
+% Cambia el formato de numeración de capítulos a números árabes
+\renewcommand{\thechapter}{\arabic{chapter}}
+
+% Cambia el formato de numeración de ecuaciones para incluir el número de capítulo
+\renewcommand{\theequation}{\arabic{chapter}.\arabic{equation}} 
+
+% Cambia el formato de numeración de secciones para incluir el número de capítulo
+\renewcommand{\thesection}{\arabic{chapter}.\arabic{section}} 
+
+
+% --------------------------
+% Nuevo Contador para Capítulos Especiales
+% --------------------------
+\newcounter{ChapterRoman}
+\renewcommand{\theChapterRoman}{\Roman{ChapterRoman}}
+
+
+% -----------------------------------
+% Configuración de Capítulos Especiales
+% -----------------------------------
+\newcommand{\Chapter}[1]{
+    \clearpage % Asegura que empezamos en una página nueva
+    \refstepcounter{ChapterRoman} % Incrementa el contador
+    \thispagestyle{empty} % Elimina encabezados y pie de página para esta página
+    \null\vfill % Centra el contenido verticalmente
+    \begin{center} % Centra el contenido horizontalmente
+        \Large\bfseries CAPÍTULO \theChapterRoman\ \\[1em] #1 % Título del capítulo
+    \end{center}
+    \vfill\null % Centra el contenido verticalmente
+    % \addcontentsline{toc}{chapter}{CAPÍTULO \theChapterRoman: #1} % Agrega la entrada al Índice
+    \addcontentsline{toc}{chapter}{CAPÍTULO \theChapterRoman} % Elimina ': #1' para quitar el título
+    \clearpage % Comienza una nueva página después del título del capítulo
+}
+
+
+% -----------------------------------
+% Formateo de Encabezados de Sección
+% -----------------------------------
+% Nivel 1 (\chapter)
+% Para los títulos de capítulos en el cuerpo del documento
+\titleformat{\chapter}[block]
+  {\normalfont\normalsize\bfseries\centering}
+  {\thechapter.} % Elimina el punto si no quieres el número de capítulo seguido de un punto
+  {0.5em}
+  {\MakeUppercase}
+\titlespacing*{\chapter}{0pt}{12pt}{5pt} % Espaciado para \chapter
+
+% Nivel 2 (\section)
+\titleformat{\section}[block]
+  {\normalfont\normalsize\bfseries\raggedright}
+  {\thesection}
+  {0.5em}
+  {}
+\titlespacing*{\section}{0pt}{12pt}{5pt} % Espaciado para \section
+
+% Nivel 3 (\subsection)
+\titleformat{\subsection}[block]
+  {\normalfont\normalsize\bfseries\itshape\raggedright}
+  {\thesubsection}
+  {0.5em}
+  {}
+\titlespacing*{\subsection}{0pt}{12pt}{5pt} % Espaciado para \subsection
+
+% Nivel 4 (\subsubsection)
+\titleformat{\subsubsection}[runin]
+  {\normalfont\normalsize\bfseries\raggedright}
+  {\thesubsubsection}
+  {0.5em}
+  {}[. \quad]
+\titlespacing*{\subsubsection}{1.27cm}{12pt}{0pt} % Espaciado para \subsubsection
+
+% Nivel 5 (\paragraph)
+\titleformat{\paragraph}[runin]
+  {\normalfont\normalsize\bfseries\itshape\raggedright}
+  {\theparagraph}
+  {0.5em}
+  {}[. \quad]
+\titlespacing*{\paragraph}{1.27cm}{12pt}{0pt} % Espaciado para \paragraph
+
+
+% -------------------------------------
+% Definición de Colores
+% -------------------------------------
+\usepackage{xcolor} % Importación del paquete de colores
+\definecolor{granate}{RGB}{113,22,16} % Define el color granate
+\definecolor{gris}{RGB}{154,153,157} % Define el color gris
+\definecolor{arena}{RGB}{230,217,170} % Define el color arena
+\definecolor{azul}{rgb}{0.03, 0.15, 0.4} % Define el color azul
+\definecolor{negro}{rgb}{0, 0, 0} % Define el color negro
+
+
+% -------------------------------------
+% Configuración de Listado de Código
+% -------------------------------------
+\lstset{ % Configuración para listados de código
+  language=Python, % Lenguaje de programación
+  basicstyle=\ttfamily\small, % Estilo básico
+  commentstyle=\color{gray}, % Estilo para comentarios
+  keywordstyle=\color{blue}, % Estilo para palabras clave
+  stringstyle=\color{red}, % Estilo para cadenas de texto
+  numberstyle=\tiny\color{gray}, % Estilo para números de línea
+  numbers=left, % Posición de números de línea
+  stepnumber=1, % Intervalo de números de línea
+  showstringspaces=false, % No mostrar espacios en cadenas
+  tabsize=4, % Tamaño de tabulación
+  breaklines=true, % Romper líneas largas
+  frame=single, % Marco alrededor del código
+  literate=% Configuración para caracteres especiales
+  {á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
+  {Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1
+  {ñ}{{\~n}}1 {Ñ}{{\~N}}1 {ü}{{\"u}}1 {Ü}{{\"U}}1
+}

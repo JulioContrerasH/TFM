@@ -1,0 +1,20 @@
+\chapter{CONCLUSIONES Y RECOMENDACIONES}
+    \section{Conclusiones}
+        Esta investigación demostró con éxito la capacidad del modelo SWINIR - MSS2TM para armonizar las características espectrales y espaciales de las imágenes MSS con las imágenes TM. La integración de técnicas de aprendizaje profundo y procesamiento de imágenes mejoró significativamente la corrección geométrica de las imágenes Landsat MSS, logrando una superposición casi perfecta con las imágenes TM. Este avance es crucial para la estandarización de datos satelitales, facilitando análisis más consistentes y confiables a largo plazo.
+
+        Se comprobó que la alineación precisa tanto espectral como espacial entre las imágenes Landsat MSS y TM fue alcanzada mediante el modelo MSS2TM. Las mejoras significativas en los índices espectrales como NDVI, NDWI y NDSI destacaron la efectividad del modelo en la armonización espectral, demostrando su capacidad para detectar con precisión la vegetación, cuerpos de agua y áreas nevadas.
+        
+        Adicionalmente, se verificó la viabilidad de complementar las imágenes MSS con bandas espectrales adicionales a través de modelos de aprendizaje profundo. Este enriquecimiento de las imágenes MSS amplió su aplicabilidad en campos que demandan alta precisión espectral, mejorando la calidad y utilidad de los datos históricos de Landsat MSS. Sin embargo, se concluye que todavía existe un margen de mejora, especialmente en la armonización de las bandas térmicas y SWIR, las cuales no se logran replicar con la misma efectividad que las bandas ópticas como la azul. Esto es particularmente importante para la corrección atmosférica y otras aplicaciones avanzadas.
+        
+        La validación del modelo en una región geográficamente diversa como Perú demostró su robustez y capacidad de generalización, resaltando la importancia de adaptar el modelo a las variaciones específicas de cada zona de interés.
+    
+    \section{Recomendaciones}
+        Basado en los hallazgos y logros de esta tesis, se recomienda lo siguiente para futuras investigaciones en el campo de la armonización de imágenes satelitales:
+
+        \begin{enumerate}
+            \item \textbf{Explorar nuevas arquitecturas de redes neuronales:} Continuar el desarrollo y la experimentación con arquitecturas innovadoras, como los Transformers y GANs avanzados, para mejorar aún más la calidad de la armonización espectral y la generación de bandas virtuales.
+            \item \textbf{Diversificar los conjuntos de datos:} Ampliar los conjuntos de datos utilizados para incluir imágenes de una gama más amplia de condiciones ambientales y geográficas. Esto permitirá evaluar con mayor profundidad la robustez y generalizabilidad de los modelos propuestos.
+            \item \textbf{Desarrollar herramientas integrables:} Crear herramientas de armonización automatizadas que puedan integrarse fácilmente con sistemas de información geográfica existentes, facilitando la aplicación práctica de los modelos en áreas como la agricultura, el urbanismo y la monitorización del cambio climático.
+            \item \textbf{Fomentar la colaboración interdisciplinaria:} Publicar el código fuente y los conjuntos de datos en plataformas de acceso abierto para potenciar la colaboración interdisciplinaria y acelerar la adopción de estas tecnologías avanzadas en la comunidad científica y profesional.
+            \item \textbf{Explorar técnicas adicionales:} Adaptar los modelos para manejar variaciones espectralmente homogéneas y la interferencia atmosférica, desarrollando algoritmos que ajusten dinámicamente los parámetros del modelo en función de las características específicas de cada área geográfica. La investigación futura también debería centrarse en la superresolución de la banda térmica para mejorar la precisión en aplicaciones de teledetección.
+        \end{enumerate}

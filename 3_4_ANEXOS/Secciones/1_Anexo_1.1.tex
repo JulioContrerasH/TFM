@@ -1,0 +1,110 @@
+% \subsection*{Respuesta Sísmica de una Edificación con AS}
+%\phantomsubsection
+% \addcontentsline{toc}{subsection}{Respuesta Sísmica de una Edificación con AS}
+
+
+
+\addcontentsline{toc}{section}{Operacionalización de variables}
+
+\vspace*{2mm}
+
+\begin{table}[H]
+    \caption{\doublespacing \\ \textit{Operacionalización de variables}}
+    \begin{spacing}{8}
+        \fontsize{8pt}{2pt}\selectfont  
+        \begin{tabularx}{\linewidth}{P{2.5cm}P{2.6cm}P{4cm}P{2.5cm}P{2.5cm}} % *{4}{P{3cm}}
+            \toprule
+            % \multicolumn{1}{c}{\textbf{Variables}} & \multicolumn{1}{c}{\textbf{Subvariables}} & \multicolumn{1}{c}{\textbf{Operacionalización}} & \multicolumn{1}{c}{\textbf{Unidad de medida}} & \multicolumn{1}{c}{\textbf{Instrumento}} \\
+            \multicolumn{1}{c}{\textbf{Variables}} & \multicolumn{1}{c}{\textbf{Dimensiones}} & \multicolumn{1}{c}{\textbf{Indicadores}} & \multicolumn{1}{c}{\textbf{Unidad de medida}} & \multicolumn{1}{c}{\textbf{Instrumento}} \\
+            \midrule
+            Inteligencia artificial (independiente) & Corrección geométrica & Error RMS después del ajuste geométrico & Píxeles (px) & Python (LightGlue) \\
+            \addlinespace
+            & Alineación espectral & Coeficiente de correlación entre las imágenes MSS y TM armonizadas espacialmente & Coeficiente de correlación (r) & Python (Pytorch) \\
+            \addlinespace
+            & Generación de bandas faltantes & Número de bandas generadas para completar MSS comparable con TM & Número de bandas (nb) & Python (Pytorch) \\
+            \addlinespace
+            \addlinespace
+            Armonización de imágenes satelitales (dependiente) & Precisión de alineación & Precisión de la superposición de píxeles en imágenes armonizadas & Metros (m) & Python (GDAL, Rasterio) \\
+            \addlinespace
+            & Similitud espectral & Índice de similitud espectral entre imágenes MSS y TM & Sin unidades & Python (PyTorch) \\
+            \addlinespace
+            & Resolución espacial & Resolución espacial de las imágenes armonizadas & Metros por píxel (m/px) & Python (Rasterio) \\
+            \addlinespace
+            & Integridad de datos temporales & Cobertura temporal completa en el cubo de datos armonizado & Porcentaje (\%) & Python (xarray) \\
+            \bottomrule
+        \end{tabularx}
+    \end{spacing}
+    \vspace{1\baselineskip}
+    % \textit{Nota.} Esta tabla muestra las variables operacionalizadas, destacando cómo la inteligencia artificial contribuye a la armonización de imágenes satelitales con modelos de aprendizaje profundo reflejados en las subvariables y métricas, utilizando Python como instrumento clave de implementación.
+    \textit{Nota.} Esta tabla muestra las variables operacionalizadas, destacando cómo la inteligencia artificial contribuye a la armonización de imágenes satelitales con modelos de aprendizaje profundo reflejados en las dimensiones y métricas, utilizando Python como instrumento clave de implementación.
+    \label{UsoLandsat1}
+\end{table}
+
+
+
+
+\addcontentsline{toc}{section}{Matriz de consistencia}
+
+\vspace*{2mm}
+
+\begin{table}[H]
+    \caption{\doublespacing \\ \textit{Matriz de consistencia.}}
+    \centering
+    \begin{spacing}{8}
+        \fontsize{8pt}{2pt}\selectfont
+        \begin{tabularx}{\textwidth}{@{}XXX@{}}
+            \toprule
+            \multicolumn{1}{c}{\textbf{Pregunta general}} & \multicolumn{1}{c}{\textbf{Objetivo general}} & \multicolumn{1}{c}{\textbf{Hipótesis general}} \\
+            \midrule
+            ¿Cómo armonizar las imágenes Landsat MSS para su uso en el monitoreo global y a largo plazo, utilizando inteligencia artificial? & Armonizar las imágenes Landsat MSS utilizando inteligencia artificial para su uso el monitoreo global y a largo plazo & El uso de inteligencia artificial para armonizar las imágenes Landsat MSS permitirá que adquieran propiedades de las imágenes TM, haciendo viable su uso en monitoreos globales de largo plazo \\
+            \addlinespace
+            \midrule
+            \textbf{Preguntas específicas} & \textbf{Objetivos específicos} & \textbf{Hipótesis específicas} \\
+            \midrule
+            ¿Cómo integrar el aprendizaje profundo y procesamiento de imágenes en la corrección geométrica de las imágenes Landsat MSS y alinearlas con las TM a nivel de pixel y subpixel? & Integrar técnicas de aprendizaje profundo y procesamiento de imágenes para la corrección geométrica de las imágenes Landsat MSS, buscando una alineación precisa con las imágenes TM a niveles de pixel y sub-pixel & La integración de aprendizaje profundo y procesamiento de imágenes mejorará la corrección geométrica de las imágenes Landsat MSS, facilitando su armonización con las imágenes TM \\
+            \addlinespace
+            ¿De qué manera puede el modelo de aprendizaje profundo MSS2TM alinear espectral y espacialmente las imágenes Landsat MSS y TM? & Desarrollar el modelo de aprendizaje profundo MSS2TM para alinear espectral y espacialmente las imágenes Landsat MSS y TM & El modelo MSS2TM, basado en aprendizaje profundo, logrará una alineación precisa tanto espectral como espacial entre las imágenes Landsat MSS y TM \\
+            \addlinespace
+            ¿Mediante qué técnica de aprendizaje profundo se puede generar bandas faltantes en imágenes MSS que existen en las TM? & Implementar una técnica de aprendizaje profundo para generar bandas ausentes en imágenes MSS que existen en las TM & La técnica de aprendizaje profundo propuesta permitirá completar las bandas ausentes en las imágenes Landsat MSS, logrando una similitud significativa con las bandas presentes en las TM \\
+            \bottomrule
+        \end{tabularx}
+    \end{spacing}
+    \label{MatrizConsistencia}
+\end{table}
+
+
+
+
+% \begin{table}[H]
+%     \caption{\doublespacing \\ \textit{Comparación y visualización de bandas y longitudes de onda de sensores Landsat mediante Spectral Viewer del U.S. Geological Survey.}}
+%     \begin{spacing}{8}
+%         \fontsize{8pt}{2pt}\selectfont  
+%         \begin{tabularx}{\linewidth}{P{3cm}*{10}{c}} 
+%             \toprule
+%             \textbf{Designaciones de banda} & \multicolumn{2}{c}{\textbf{L8-9 OLI/TIRS}} & \multicolumn{2}{c}{\textbf{L7 ETM+}} & \multicolumn{2}{c}{\textbf{L4-5 TM}} & \multicolumn{2}{c}{\textbf{L4-5 MSS*}} & \multicolumn{2}{c}{\textbf{L1-3 MSS*}} \\
+%             \midrule
+%             & B & Longitud & B & Longitud & B & Longitud & B & Longitud & B & Longitud \\
+%             \midrule
+%             Costera/Aerosol & 1 & 0.43–0.45 & -- & -- & -- & -- & -- & -- & -- & -- \\
+%             Azul & 2 & 0.45–0.51 & 1 & 0.45–0.52 & 1 & 0.45–0.52 & -- & -- & -- & -- \\
+%             Verde & 3 & 0.53–0.59 & 2 & 0.52–0.60 & 2 & 0.52–0.60 & 1 & 0.5–0.6 & 4 & 0.5–0.6 \\
+%             Pancromática** & 8  & 0.50–0.68 & 8 & 0.52–0.90 & -- & -- & -- & -- & -- & -- \\
+%             Rojo & 4 & 0.64–0.67 & 3 & 0.63–0.69 & 3 & 0.63–0.69 & 2 & 0.6–0.7 & 5 & 0.6–0.7 \\
+%             Infrarrojo cercano & 5 & 0.85–0.88 & 4 & 0.77–0.90 & 4 & 0.76–0.90 & 3 & 0.7–0.8 & 6 & 0.7–0.8 \\
+%             Infrarrojo cercano & -- & -- & -- & -- & -- & -- & 4 & 0.8–1.1 & 7 & 0.8–1.1 \\
+%             Cirrus & 9 & 1.36–1.38 & -- & -- & -- & -- & -- & -- & -- & -- \\
+%             Infrarrojo corto-1 & 6 & 1.57–1.65 & 5 & 1.55–1.75 & 5 & 1.55–1.75 & -- & -- & -- & -- \\
+%             Infrarrojo corto-2 & 7 & 2.11–2.29 & 7 & 2.09–2.35 & 7 & 2.08–2.35 & -- & -- & -- & -- \\
+%             Térmico & 10 T1 & 10.60–11.19 & 6 T2 & 10.40–12.50 & 6 T2 & 10.40–12.50 & -- & -- & -- & -- \\
+%             Térmico & 11 T1 & 11.50–12.51 & -- & -- & -- & -- & -- & -- & -- & -- \\
+%             \bottomrule
+%         \end{tabularx}
+%     \end{spacing}
+%     \vspace{1\baselineskip}
+%     \textit{Nota.} Hay observaciones que se debe tener en cuenta. Adapatado de \textcite{Landsat2023}. \\
+%         * Adquirido a 80 metros, remuestreado a 60 metros. \\
+%         ** 15 metros (pancromático). \\
+%         T1 = Térmico (adquirido a 100 metros, remuestreado a 30 metros). \\
+%         T2 = Térmico (adquirido a 120 metros, remuestreado a 30 metros). 
+%     \label{BandasLandsat}
+% \end{table}

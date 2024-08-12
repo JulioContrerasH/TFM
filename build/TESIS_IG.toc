@@ -1,0 +1,179 @@
+\babel@toc {spanish}{}\relax 
+\contentsline {chapter}{CAPÍTULO I}{1}{ChapterRoman.1}%
+\contentsline {chapter}{\numberline {1}INTRODUCCIÓN}{2}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Introducción}{2}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Planteamiento del problema}{3}{section.1.2}%
+\contentsline {subsection}{\numberline {1.2.1}Descripción de la problemática}{3}{subsection.1.2.1}%
+\contentsline {subsection}{\numberline {1.2.2}Formulación del problema}{4}{subsection.1.2.2}%
+\contentsline {subsubsection}{\numberline {1.2.2.1}Pregunta general}{4}{subsubsection.1.2.2.1}%
+\contentsline {subsubsection}{\numberline {1.2.2.2}Preguntas específicas}{4}{subsubsection.1.2.2.2}%
+\contentsline {section}{\numberline {1.3}Objetivos de la investigación}{4}{section.1.3}%
+\contentsline {subsection}{\numberline {1.3.1}Objetivo general}{4}{subsection.1.3.1}%
+\contentsline {subsection}{\numberline {1.3.2}Objetivos específicos}{4}{subsection.1.3.2}%
+\contentsline {section}{\numberline {1.4}Importancia y alcance de la investigación}{5}{section.1.4}%
+\contentsline {chapter}{CAPÍTULO II}{7}{ChapterRoman.2}%
+\contentsline {chapter}{\numberline {2}MARCO TEÓRICO}{8}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Antecedentes de la investigación}{8}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Bases teóricas}{10}{section.2.2}%
+\contentsline {subsection}{\numberline {2.2.1}Armonización de imágenes satelitales}{10}{subsection.2.2.1}%
+\contentsline {subsubsection}{\numberline {2.2.1.1}Landsat: satélites de observación terrestre}{10}{subsubsection.2.2.1.1}%
+\contentsline {paragraph}{Historia y misión de Landsat}{10}{paragraph*.2}%
+\contentsline {paragraph}{Adquisiciones satelitales}{11}{paragraph*.4}%
+\contentsline {paragraph}{Sensores y designaciones de bandas}{12}{paragraph*.5}%
+\contentsline {paragraph}{Aplicaciones de los datos Landsat}{13}{paragraph*.8}%
+\contentsline {subsubsection}{\numberline {2.2.1.2}Landsat MSS}{13}{subsubsection.2.2.1.2}%
+\contentsline {paragraph}{Landsat 1 (ERTS-1) y su MSS}{14}{paragraph*.9}%
+\contentsline {paragraph}{Landsat 2}{15}{paragraph*.11}%
+\contentsline {paragraph}{Landsat 3}{16}{paragraph*.13}%
+\contentsline {paragraph}{Landsat 4}{17}{paragraph*.15}%
+\contentsline {paragraph}{Landsat 5}{18}{paragraph*.17}%
+\contentsline {paragraph}{Fechas del Landsat MSS}{20}{paragraph*.19}%
+\contentsline {subsubsection}{\numberline {2.2.1.3}Landsat TM}{20}{subsubsection.2.2.1.3}%
+\contentsline {paragraph}{Landsat 4}{20}{paragraph*.20}%
+\contentsline {paragraph}{Landsat 5}{21}{paragraph*.22}%
+\contentsline {subsubsection}{\numberline {2.2.1.4}Armonización de imágenes en Teledetección}{22}{subsubsection.2.2.1.4}%
+\contentsline {subsubsection}{\numberline {2.2.1.5}Armonización geométrica de datos de Teledetección}{23}{subsubsection.2.2.1.5}%
+\contentsline {paragraph}{Causas de desalineaciones}{23}{paragraph*.24}%
+\contentsline {paragraph}{Proceso de armonización}{23}{paragraph*.25}%
+\contentsline {paragraph}{Resampling y Pan-sharpening}{23}{paragraph*.26}%
+\contentsline {paragraph}{Técnicas de co-registración}{24}{paragraph*.27}%
+\contentsline {paragraph}{Necesidad de un método universal}{24}{paragraph*.28}%
+\contentsline {subsubsection}{\numberline {2.2.1.6}Armonización espectral de datos de Teledetección}{24}{subsubsection.2.2.1.6}%
+\contentsline {paragraph}{Discrepancias espectrales entre sensores}{24}{paragraph*.29}%
+\contentsline {paragraph}{Objetivo de la armonización espectral}{24}{paragraph*.30}%
+\contentsline {paragraph}{Técnicas existentes}{24}{paragraph*.31}%
+\contentsline {paragraph}{Necesidad de avances metodológicos}{25}{paragraph*.32}%
+\contentsline {subsubsection}{\numberline {2.2.1.7}Normalización y ajuste de datos con aplicación de parámetros BRDF}{25}{subsubsection.2.2.1.7}%
+\contentsline {paragraph}{Fundamentos de la función de distribución bidireccional de reflectancia (BRDF)}{25}{paragraph*.33}%
+\contentsline {paragraph}{Aplicación de parámetros BRDF en la normalización de datos}{25}{paragraph*.34}%
+\contentsline {paragraph}{Integración de datos TM y ETM+ en modelos BRDF}{25}{paragraph*.35}%
+\contentsline {subsection}{\numberline {2.2.2}Inteligencia artificial}{26}{subsection.2.2.2}%
+\contentsline {subsubsection}{\numberline {2.2.2.1}Deep learning en el procesamiento de imágenes de Teledetección}{26}{subsubsection.2.2.2.1}%
+\contentsline {subsubsection}{\numberline {2.2.2.2}Redes neuronales convolucionales (CNN)}{26}{subsubsection.2.2.2.2}%
+\contentsline {paragraph}{Convolución y su aplicación en aprendizaje profundo}{27}{paragraph*.37}%
+\contentsline {paragraph}{Padding}{28}{paragraph*.39}%
+\contentsline {paragraph}{Stride}{33}{paragraph*.43}%
+\contentsline {subsubsection}{\numberline {2.2.2.3}Tipos de capas en una red neuronal convolucional}{34}{subsubsection.2.2.2.3}%
+\contentsline {paragraph}{Capa de Convolución}{35}{paragraph*.46}%
+\contentsline {paragraph}{Capa de agrupación}{36}{paragraph*.48}%
+\contentsline {paragraph}{Capa totalmente conectada}{37}{paragraph*.50}%
+\contentsline {paragraph}{Hiperparámetros}{37}{paragraph*.51}%
+\contentsline {section}{\numberline {2.3}Definición de términos}{39}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}Armonización de datos}{39}{subsection.2.3.1}%
+\contentsline {subsection}{\numberline {2.3.2}BRDF (Bidirectional Reflectance Distribution Function)}{39}{subsection.2.3.2}%
+\contentsline {subsection}{\numberline {2.3.3}CNN (Redes Neuronales Convolucionales)}{39}{subsection.2.3.3}%
+\contentsline {subsection}{\numberline {2.3.4}Co-registración}{40}{subsection.2.3.4}%
+\contentsline {subsection}{\numberline {2.3.5}Cubo de datos}{40}{subsection.2.3.5}%
+\contentsline {subsection}{\numberline {2.3.6}Deep learning}{40}{subsection.2.3.6}%
+\contentsline {subsection}{\numberline {2.3.7}Entornos conda}{40}{subsection.2.3.7}%
+\contentsline {subsection}{\numberline {2.3.8}ESRCNN (Extended Super-Resolution Convolutional Neural Network)}{41}{subsection.2.3.8}%
+\contentsline {subsection}{\numberline {2.3.9}GAN (Generative Adversarial Network)}{41}{subsection.2.3.9}%
+\contentsline {subsection}{\numberline {2.3.10}Generación de banda virtual}{41}{subsection.2.3.10}%
+\contentsline {subsection}{\numberline {2.3.11}Histogram matching}{41}{subsection.2.3.11}%
+\contentsline {subsection}{\numberline {2.3.12}Landsat}{41}{subsection.2.3.12}%
+\contentsline {subsection}{\numberline {2.3.13}MSS (Multi-Spectral Scanner)}{42}{subsection.2.3.13}%
+\contentsline {subsection}{\numberline {2.3.14}NDVI}{42}{subsection.2.3.14}%
+\contentsline {subsection}{\numberline {2.3.15}Segmentación de imágenes}{42}{subsection.2.3.15}%
+\contentsline {subsection}{\numberline {2.3.16}Super-resolución}{42}{subsection.2.3.16}%
+\contentsline {subsection}{\numberline {2.3.17}TM (Thematic Mapper)}{42}{subsection.2.3.17}%
+\contentsline {subsection}{\numberline {2.3.18}Transformadas de Fourier}{42}{subsection.2.3.18}%
+\contentsline {chapter}{CAPÍTULO III}{44}{ChapterRoman.3}%
+\contentsline {chapter}{\numberline {3}HIPÓTESIS Y VARIABLES}{45}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Las hipótesis}{45}{section.3.1}%
+\contentsline {subsection}{\numberline {3.1.1}Hipótesis general}{45}{subsection.3.1.1}%
+\contentsline {subsection}{\numberline {3.1.2}Hipótesis específicas}{45}{subsection.3.1.2}%
+\contentsline {section}{\numberline {3.2}Las variables}{45}{section.3.2}%
+\contentsline {subsection}{\numberline {3.2.1}Variable independiente}{45}{subsection.3.2.1}%
+\contentsline {subsection}{\numberline {3.2.2}Variable dependiente}{45}{subsection.3.2.2}%
+\contentsline {section}{\numberline {3.3}Operacionalización de variables}{46}{section.3.3}%
+\contentsline {chapter}{CAPÍTULO IV}{47}{ChapterRoman.4}%
+\contentsline {chapter}{\numberline {4}METODOLOGÍA}{48}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Área de estudio (unidad de análisis)}{48}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Diseño de investigación}{50}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Tipo}{50}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}Nivel}{50}{subsection.4.2.2}%
+\contentsline {subsection}{\numberline {4.2.3}Enfoque}{51}{subsection.4.2.3}%
+\contentsline {subsection}{\numberline {4.2.4}Diseño}{51}{subsection.4.2.4}%
+\contentsline {section}{\numberline {4.3}Población y muestra}{51}{section.4.3}%
+\contentsline {subsection}{\numberline {4.3.1}Población}{51}{subsection.4.3.1}%
+\contentsline {subsection}{\numberline {4.3.2}Muestra}{51}{subsection.4.3.2}%
+\contentsline {section}{\numberline {4.4}Procedimiento, técnicas e instrumentos de recolección de información}{52}{section.4.4}%
+\contentsline {subsection}{\numberline {4.4.1}Obtención de datos de entrada}{52}{subsection.4.4.1}%
+\contentsline {subsubsection}{\numberline {4.4.1.1}Selección por localización}{52}{subsubsection.4.4.1.1}%
+\contentsline {subsubsection}{\numberline {4.4.1.2}Selección por tiempo y calidad}{54}{subsubsection.4.4.1.2}%
+\contentsline {subsection}{\numberline {4.4.2}Corrección geométrica de las imágenes MSS}{55}{subsection.4.4.2}%
+\contentsline {subsubsection}{\numberline {4.4.2.1}Lectura y preprocesamiento de imágenes}{55}{subsubsection.4.4.2.1}%
+\contentsline {subsubsection}{\numberline {4.4.2.2}Extracción y coincidencia de características}{55}{subsubsection.4.4.2.2}%
+\contentsline {subsubsection}{\numberline {4.4.2.3}Eliminacón de errores calidad y la usabilidad de las MSS}{56}{subsubsection.4.4.2.3}%
+\contentsline {subsubsection}{\numberline {4.4.2.4}Determinación del desplazamiento espacial}{57}{subsubsection.4.4.2.4}%
+\contentsline {subsubsection}{\numberline {4.4.2.5}Refinamiento subpíxel y convolución en 2D}{58}{subsubsection.4.4.2.5}%
+\contentsline {subsubsection}{\numberline {4.4.2.6}Filtro final de los pares de imágenes}{59}{subsubsection.4.4.2.6}%
+\contentsline {subsection}{\numberline {4.4.3}Preparación y organización de datos para deep learning}{60}{subsection.4.4.3}%
+\contentsline {subsubsection}{\numberline {4.4.3.1}Conversión de formato de datos}{60}{subsubsection.4.4.3.1}%
+\contentsline {subsubsection}{\numberline {4.4.3.2}Estandarización y homogeneización}{60}{subsubsection.4.4.3.2}%
+\contentsline {subsubsection}{\numberline {4.4.3.3}Integración con Hugging Face}{60}{subsubsection.4.4.3.3}%
+\contentsline {paragraph}{Publicación en Hugging Face}{60}{paragraph*.60}%
+\contentsline {paragraph}{Catalogación efectiva}{60}{paragraph*.61}%
+\contentsline {paragraph}{Acceso y reproducibilidad}{61}{paragraph*.62}%
+\contentsline {subsubsection}{\numberline {4.4.3.4}Segmentación y distribución de datos}{61}{subsubsection.4.4.3.4}%
+\contentsline {subsubsection}{\numberline {4.4.3.5}Procesamiento y alineación de imágenes}{61}{subsubsection.4.4.3.5}%
+\contentsline {subsubsection}{\numberline {4.4.3.6}Normalización y preparación de datos}{61}{subsubsection.4.4.3.6}%
+\contentsline {subsubsection}{\numberline {4.4.3.7}Optimización y manejo eficiente de datos}{61}{subsubsection.4.4.3.7}%
+\contentsline {subsection}{\numberline {4.4.4}Desarrollo del modelo MSS2TM}{63}{subsection.4.4.4}%
+\contentsline {subsubsection}{\numberline {4.4.4.1}Configuración del entorno de trabajo}{63}{subsubsection.4.4.4.1}%
+\contentsline {subsubsection}{\numberline {4.4.4.2}Elección de arquitecturas para el generador y discriminador en GANs}{63}{subsubsection.4.4.4.2}%
+\contentsline {subsubsection}{\numberline {4.4.4.3}Definición de parámetros y funciones de pérdida}{64}{subsubsection.4.4.4.3}%
+\contentsline {subsubsection}{\numberline {4.4.4.4}Proceso de entrenamiento}{65}{subsubsection.4.4.4.4}%
+\contentsline {subsubsection}{\numberline {4.4.4.5}Ajuste y optimización}{66}{subsubsection.4.4.4.5}%
+\contentsline {subsubsection}{\numberline {4.4.4.6}Configuración de las funciones de pérdida}{66}{subsubsection.4.4.4.6}%
+\contentsline {paragraph}{CLIP Loss}{66}{paragraph*.66}%
+\contentsline {paragraph}{L1 Loss}{67}{paragraph*.67}%
+\contentsline {paragraph}{LPIPS Loss}{67}{paragraph*.68}%
+\contentsline {subsection}{\numberline {4.4.5}Generación de bandas virtuales en imágenes MSS}{68}{subsection.4.4.5}%
+\contentsline {subsubsection}{\numberline {4.4.5.1}Adquisición y procesamiento inicial de datos}{68}{subsubsection.4.4.5.1}%
+\contentsline {subsubsection}{\numberline {4.4.5.2}Entrenamiento del perceptrón multicapa (MLP)}{68}{subsubsection.4.4.5.2}%
+\contentsline {subsubsection}{\numberline {4.4.5.3}Proceso de entrenamiento y ajuste fino}{69}{subsubsection.4.4.5.3}%
+\contentsline {paragraph}{Histograma matching}{70}{paragraph*.70}%
+\contentsline {paragraph}{Normalización de valores de reflectancia}{70}{paragraph*.71}%
+\contentsline {paragraph}{Modelos con diferentes parámetros}{70}{paragraph*.72}%
+\contentsline {paragraph}{Early stopping}{70}{paragraph*.73}%
+\contentsline {paragraph}{Mantener la firma espectral}{70}{paragraph*.74}%
+\contentsline {section}{\numberline {4.5}Análisis estadístico}{72}{section.4.5}%
+\contentsline {subsection}{\numberline {4.5.1}Validación cuantitativa}{72}{subsection.4.5.1}%
+\contentsline {subsubsection}{\numberline {4.5.1.1}Error Absoluto Medio (MAE)}{72}{subsubsection.4.5.1.1}%
+\contentsline {subsubsection}{\numberline {4.5.1.2}Raíz del Error Cuadrático Medio (RMSE)}{72}{subsubsection.4.5.1.2}%
+\contentsline {subsubsection}{\numberline {4.5.1.3}Coeficiente de Correlación de Pearson (R)}{72}{subsubsection.4.5.1.3}%
+\contentsline {subsection}{\numberline {4.5.2}Evaluación de métricas de rendimiento}{72}{subsection.4.5.2}%
+\contentsline {subsubsection}{\numberline {4.5.2.1}CLIP Loss}{72}{subsubsection.4.5.2.1}%
+\contentsline {subsubsection}{\numberline {4.5.2.2}L1 Loss}{72}{subsubsection.4.5.2.2}%
+\contentsline {subsubsection}{\numberline {4.5.2.3}LPIPS (Learned Perceptual Image Patch Similarity) Loss}{73}{subsubsection.4.5.2.3}%
+\contentsline {chapter}{CAPÍTULO V}{74}{ChapterRoman.5}%
+\contentsline {chapter}{\numberline {5}RESULTADOS}{75}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Evaluación de la armonización de imágenes MSS y TM}{75}{section.5.1}%
+\contentsline {subsection}{\numberline {5.1.1}Corrección geométrica y alineación espacial}{75}{subsection.5.1.1}%
+\contentsline {subsection}{\numberline {5.1.2}Calidad de la armonización espectral y espacial}{76}{subsection.5.1.2}%
+\contentsline {subsection}{\numberline {5.1.3}Generación de bandas virtuales}{77}{subsection.5.1.3}%
+\contentsline {subsection}{\numberline {5.1.4}Evaluación de la armonización de imágenes}{79}{subsection.5.1.4}%
+\contentsline {subsubsection}{\numberline {5.1.4.1}Índices espectrales}{79}{subsubsection.5.1.4.1}%
+\contentsline {paragraph}{Índice de vegetación de diferencia normalizada (NDVI)}{79}{paragraph*.81}%
+\contentsline {paragraph}{Índice de diferencia normalizada de agua (NDWI)}{80}{paragraph*.83}%
+\contentsline {paragraph}{Índice de diferencia normalizada de nieve (NDSI)}{82}{paragraph*.85}%
+\contentsline {section}{\numberline {5.2}Análisis estadístico de los resultados}{84}{section.5.2}%
+\contentsline {subsection}{\numberline {5.2.1}Contexto y metodología de Validación}{84}{subsection.5.2.1}%
+\contentsline {subsection}{\numberline {5.2.2}Evaluación cuantitativa de la superresolución}{85}{subsection.5.2.2}%
+\contentsline {subsubsection}{\numberline {5.2.2.1}Interpretación de métricas:}{86}{subsubsection.5.2.2.1}%
+\contentsline {subsection}{\numberline {5.2.3}Análisis detallado por bandas espectrales}{86}{subsection.5.2.3}%
+\contentsline {subsection}{\numberline {5.2.4}Distribución de métricas y variabilidad del modelo}{87}{subsection.5.2.4}%
+\contentsline {subsection}{\numberline {5.2.5}Análisis de las bandas SWIR y térmica}{88}{subsection.5.2.5}%
+\contentsline {chapter}{CAPÍTULO VI}{90}{ChapterRoman.6}%
+\contentsline {chapter}{\numberline {6}DISCUSIÓN}{91}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Evaluación comparativa con estudios previos}{91}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Variabilidad geográfica y rendimiento del modelo}{91}{section.6.2}%
+\contentsline {section}{\numberline {6.3}Implicaciones prácticas y limitaciones}{91}{section.6.3}%
+\contentsline {chapter}{\numberline {7}CONCLUSIONES Y RECOMENDACIONES}{93}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Conclusiones}{93}{section.7.1}%
+\contentsline {section}{\numberline {7.2}Recomendaciones}{93}{section.7.2}%
+\contentsline {chapter}{REFERENCIAS BIBLIOGRÁFICAS}{95}{chapter*.92}%
+\contentsline {chapter}{\bf ANEXOS}{99}{section*.93}%
+\contentsline {section}{Operacionalización de variables}{99}{chapter*.94}%
+\contentsline {section}{Matriz de consistencia}{100}{table.caption.95}%

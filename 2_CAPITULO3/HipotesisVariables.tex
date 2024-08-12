@@ -1,0 +1,54 @@
+\Chapter{}
+\chapter{HIPÓTESIS Y VARIABLES}
+    \section{Las hipótesis}
+        \subsection{Hipótesis general}
+            \begin{itemize}
+                \item[-] El uso de inteligencia artificial para armonizar las imágenes Landsat MSS permitirá que adquieran propiedades de las imágenes TM, haciendo viable su uso en monitoreos globales de largo plazo
+            \end{itemize}
+        \subsection{Hipótesis específicas}
+            \begin{itemize}
+                \item[-] La integración de aprendizaje profundo y procesamiento de imágenes mejorará la corrección geométrica de las imágenes Landsat MSS, facilitando su armonización con las imágenes TM.
+                \item[-] El modelo MSS2TM, basado en aprendizaje profundo, logrará una alineación precisa tanto espectral como espacial entre las imágenes Landsat MSS y TM.
+                \item[-] La técnica de aprendizaje profundo propuesta permitirá completar las bandas ausentes en las imágenes Landsat MSS, logrando una similitud significativa con las bandas presentes en las TM.
+            \end{itemize}
+    \section{Las variables}
+        \subsection{Variable independiente}
+            Inteligencia artificial. %Uso de técnicas de aprendizaje profundo en las imágenes Landsat MSS. 
+        \subsection{Variable dependiente}
+            Armonización de imágenes satelitales. % Calidad y alineación de las imágenes Landsat MSS con las imágenes TM.
+
+    \section{Operacionalización de variables}
+
+        \begin{table}[H]
+            \caption{\doublespacing \\ \textit{Operacionalización de variables}}
+            \begin{spacing}{8}
+                \fontsize{8pt}{2pt}\selectfont  
+                \begin{tabularx}{\linewidth}{P{2.5cm}P{2.6cm}P{4cm}P{2.5cm}P{2.5cm}} % *{4}{P{3cm}}
+                    \toprule
+                    % \multicolumn{1}{c}{\textbf{Variables}} & \multicolumn{1}{c}{\textbf{Subvariables}} & \multicolumn{1}{c}{\textbf{Operacionalización}} & \multicolumn{1}{c}{\textbf{Unidad de medida}} & \multicolumn{1}{c}{\textbf{Instrumento}} \\
+                    \multicolumn{1}{c}{\textbf{Variables}} & \multicolumn{1}{c}{\textbf{Dimensiones}} & \multicolumn{1}{c}{\textbf{Indicadores}} & \multicolumn{1}{c}{\textbf{Unidad de medida}} & \multicolumn{1}{c}{\textbf{Instrumento}} \\
+                    \midrule
+                    Inteligencia artificial (independiente) & Corrección geométrica & Error RMS después del ajuste geométrico & Píxeles (px) & Python (LightGlue) \\
+                    \addlinespace
+                    & Alineación espectral & Coeficiente de correlación entre las imágenes MSS y TM armonizadas espacialmente & Coeficiente de correlación (r) & Python (Pytorch) \\
+                    \addlinespace
+                    & Generación de bandas faltantes & Número de bandas generadas para completar MSS comparable con TM & Número de bandas (nb) & Python (Pytorch) \\
+                    \addlinespace
+                    \addlinespace
+                    Armonización de imágenes satelitales (dependiente) & Precisión de alineación & Precisión de la superposición de píxeles en imágenes armonizadas & Metros (m) & Python (GDAL, Rasterio) \\
+                    \addlinespace
+                    & Similitud espectral & Índice de similitud espectral entre imágenes MSS y TM & Sin unidades & Python (PyTorch) \\
+                    \addlinespace
+                    & Resolución espacial & Resolución espacial de las imágenes armonizadas & Metros por píxel (m/px) & Python (Rasterio) \\
+                    \addlinespace
+                    & Integridad de datos temporales & Cobertura temporal completa en el cubo de datos armonizado & Porcentaje (\%) & Python (xarray) \\
+                    \bottomrule
+                \end{tabularx}
+            \end{spacing}
+            \vspace{1\baselineskip}
+            % \textit{Nota.} Esta tabla muestra las variables operacionalizadas, destacando cómo la inteligencia artificial contribuye a la armonización de imágenes satelitales con modelos de aprendizaje profundo reflejados en las subvariables y métricas, utilizando Python como instrumento clave de implementación.
+            \textit{Nota.} Esta tabla muestra las variables operacionalizadas, destacando cómo la inteligencia artificial contribuye a la armonización de imágenes satelitales con modelos de aprendizaje profundo reflejados en las dimensiones y métricas, utilizando Python como instrumento clave de implementación.
+            \label{UsoLandsat2}
+        \end{table}
+
+

@@ -1,0 +1,63 @@
+\Chapter{}
+
+\chapter{INTRODUCCIÓN}
+    \section{Introducción}
+    La exploración de nuestro planeta desde el espacio ha revolucionado el entendimiento del medio ambiente y ha sido fundamental en la planificación y gestión de recursos naturales. Dentro de este marco, el programa Landsat ha desempeñado un rol vital, suministrando una secuencia continua de datos sobre las transformaciones terrestres desde la década de 1970. No obstante, la evolución tecnológica entre las distintas generaciones de sensores Landsat ha presentado obstáculos para la comparación homogénea de datos a través del tiempo.
+
+    La presente tesis, titulada "Recuperación de imágenes Landsat MSS (1972-1999) mediante inteligencia artificial hacia una armonización efectiva del monitoreo global y a largo plazo", enfrenta este desafío mediante la aplicación de avanzadas técnicas de inteligencia artificial para la estandarización de datos obtenidos por el sensor Multi-Spectral Scanner (MSS) de Landsat, abarcando desde 1972 hasta 1999. Este enfoque no solo mejora la capacidad de analizar cambios en la superficie terrestre a largo plazo, sino que también enriquece el valor histórico de los registros de Landsat, fundamentales para comprender las dinámicas de cambio en uso del suelo, cobertura vegetal y fenómenos geográficos a escala global.
+    
+    En el capítulo uno, se introduce el contexto y la importancia de la observación terrestre a través de Landsat, subrayando las dificultades técnicas surgidas de las diferencias entre generaciones de sensores y cómo estas impactan en la comparabilidad de los datos. El segundo capítulo se centra en el marco teórico, delineando los fundamentos de la teledetección y la inteligencia artificial como herramientas para la armonización de datos satelitales. El capítulo tres detalla la metodología empleada, describiendo el diseño y la implementación de modelos de aprendizaje profundo destinados a ajustar las discrepancias entre los sensores MSS y TM, permitiendo así una integración efectiva de los datos históricos con registros más recientes.
+    
+    El cuarto capítulo expone los resultados obtenidos, evidenciando la efectividad de los modelos de aprendizaje profundo en la armonización de imágenes MSS con las de TM, y destaca cómo este enfoque mejora significativamente la utilidad de los datos de Landsat para análisis a largo plazo. Por último, el capítulo cinco reflexiona sobre las implicaciones de estos hallazgos, tanto para la comunidad científica como para la práctica en campos relacionados con la geografía y la ecología, resaltando el aporte de la investigación al avance en la ingeniería geográfica y subrayando el valor incalculable de los registros Landsat como crónica de la historia ambiental del planeta.
+    \section{Planteamiento del problema}
+        \subsection{Descripción de la problemática}
+            La serie de datos Landsat ha sido una herramienta esencial para la investigación de la superficie terrestre debido a su larga serie temporal. Sin embargo, la armonización de imágenes satelitales de diferentes sensores Landsat, como MSS y TM, representa un desafío en la comunidad de teledetección. Las discrepancias se deben, en gran medida, a las diferencias en las bandas espectrales, resoluciones espaciales y la calidad inherente de las imágenes.
+            
+            Aunque se proporcionan productos de Reflectancia de la Superficie Terrestre (LSR) para Landsat TM, ETM+ y OLI, las primeras imágenes MSS de Landsat 1-5 carecen de dicho producto debido a desafíos como la calidad de imagen inferior y diferencias en las bandas \autocite{zhao2022framework}. Las imágenes MSS, adquiridas desde 1972, carecen de ciertas bandas espectrales que están presentes en las imágenes TM, complicando aún más su integración multiespectral.
+            
+            Los métodos basados en regresiones han sido propuestos para mapear las bandas entre sensores Landsat, facilitando la integración de datos de múltiples plataformas satelitales \autocite{roy2016characterization}. Sin embargo, estos enfoques a menudo requieren múltiples pasos de preprocesamiento y pueden no ser óptimos para todas las aplicaciones.
+            
+            Por su parte, algoritmos de deep learning, como U-Net \autocite{ronneberger2015u}, se han presentado como herramientas poderosas para el procesamiento y análisis de imágenes satelitales. Una red neuronal convolucional de super-resolución extendida (ESRCNN) fue desarrollada para fusionar datos de Landsat-8 y Sentinel-2, demostrando su eficacia en la producción de conjuntos de datos coherentes \autocite{shao2019deep}. Sin embargo, la aplicación de estas técnicas para la armonización de imágenes satelitales aún está en sus etapas iniciales.
+    
+            Dentro de este contexto, surge la necesidad de explorar cómo la inteligencia artificial, especialmente el aprendizaje profundo, puede desempeñar un papel crucial en la armonización efectiva de las imágenes Landsat MSS, haciendo viable su uso en monitoreos globales de largo plazo. Esta investigación busca abordar precisamente este desafío, proporcionando soluciones innovadoras para una armonización efectiva de las imágenes MSS y TM.
+            
+        \subsection{Formulación del problema}
+            \subsubsection{Pregunta general}
+            \begin{itemize}
+                \item[-] ¿Cómo armonizar las imágenes Landsat MSS para su uso en el monitoreo global y a largo plazo, utilizando inteligencia artificial?
+            \end{itemize}
+            \subsubsection{Preguntas específicas}
+                \begin{itemize}
+                    \item[-] ¿Cómo integrar el aprendizaje profundo y procesamiento de imágenes en la corrección geométrica de las imágenes Landsat MSS y alinearlas con las TM a nivel de pixel y sub-pixel?
+                    \item[-] ¿De qué manera puede el modelo de aprendizaje profundo MSS2TM alinear espectral y espacialmente las imágenes Landsat MSS y TM?
+                    \item[-] ¿Mediante qué técnica de aprendizaje profundo se puede generar bandas faltantes en imágenes MSS que existen en las TM?
+                \end{itemize}
+    \section{Objetivos de la investigación}
+        \subsection{Objetivo general}
+            \begin{itemize}
+                \item[-]Armonizar las imágenes Landsat MSS utilizando inteligencia artificial para su uso el monitoreo global y a largo plazo.
+            \end{itemize}
+            \subsection{Objetivos específicos}
+                \begin{itemize}
+                    \item[-] Integrar técnicas de aprendizaje profundo y procesamiento de imágenes para la corrección geométrica de las imágenes Landsat MSS, buscando una alineación precisa con las imágenes TM a niveles de pixel y sub-pixel.
+                    \item[-] Desarrollar el modelo de aprendizaje profundo MSS2TM para alinear espectral y espacialmente las imágenes Landsat MSS y TM.
+                    \item[-] Implementar una técnica de aprendizaje profundo para generar bandas ausentes en imágenes MSS que existen en las TM.
+                \end{itemize}
+
+    \section{Importancia y alcance de la investigación}
+        El programa Landsat, a lo largo de sus décadas de existencia, ha proporcionado datos esenciales que han informado y guiado la investigación sobre la superficie terrestre. La armonización de imágenes satelitales, especialmente las de Landsat MSS (1972- 1999), es esencial para garantizar la continuidad y coherencia de las series temporales de datos satelitales. Estas imágenes, aunque valiosas por su extenso registro temporal, presentan desafíos inherentes debido a las diferencias en las bandas espectrales y resoluciones espaciales en comparación con sensores más modernos. La falta de coherencia espectral y temporal puede llevar a interpretaciones erróneas, especialmente cuando se intenta combinar o comparar datos de diferentes series de Landsat para análisis multitemporales.
+        
+        La inteligencia artificial, particularmente a través del aprendizaje profundo, se presenta como una solución potente para estos desafíos. Con técnicas avanzadas, es posible abordar las diferencias espectrales y geométricas, logrando una integración más exacta y, consecuentemente, análisis multitemporales más fidedignos. La eficacia de estas técnicas es resaltada por la eficiencia de arquitecturas como U-Net y modelos de armonización como ESRCNN. Sin embargo, aún queda por determinar la capacidad integral de estas y otras técnicas al enfrentar el desafío de alinear imágenes de diferentes sensores satelitales.
+        
+        La importancia de esta investigación radica en su potencial para llenar un vacío existente en la teledetección. Al optimizar la calidad y compatibilidad de las imágenes Landsat MSS, esta investigación facilitará la utilización de datos que abarcan desde 1972 a 1999 combinando imágenes de sensores Landsat MSS y TM, enriqueciendo el alcance temporal del monitoreo global. Esto es esencial para entender y rastrear cambios a largo plazo en la superficie terrestre, lo que tiene implicaciones en áreas tan diversas como el cambio climático, la conservación ambiental y el desarrollo urbano.
+        
+        Además, la metodología de armonización desarrollada en este estudio puede ser adaptada y utilizada para otros sensores y tecnologías emergentes en el campo de la teledetección. Esto incluye sensores con resoluciones espaciales más finas, que son cada vez más comunes en la observación terrestre. Al establecer un marco sólido para la armonización de datos, esta investigación permitirá mejorar la calidad y coherencia de los datos satelitales, promoviendo así estudios más complejos y detallados en diversas aplicaciones prácticas. La planificación urbana, la gestión de recursos naturales, la mitigación de desastres ambientales y muchos otros campos podrán beneficiarse directamente de los datos armonizados y las técnicas desarrolladas en este estudio. De esta manera, se sentarán las bases para futuras investigaciones y aplicaciones prácticas en teledetección y análisis ambiental, permitiendo que estas metodologías se apliquen también a sensores de mayor resolución espacial, facilitando el análisis de imágenes con mayor detalle y precisión.
+
+    % \section{Limitaciones de la investigación}
+    %     La investigación se enfoca exclusivamente en la armonización de imágenes de los sensores Landsat MSS y TM. Esta especialización, aunque esencial para el estudio específico de estas series de datos, limita la aplicabilidad de los resultados y metodologías a otros sensores satelitales. Esta limitación puede ser significativa, ya que existen diversas plataformas de teledetección con características y retos distintos que no se abordan en este estudio.
+
+    %     Además, la investigación no considera la interacción de factores atmosféricos y estacionales en la variabilidad de los datos Landsat. Esta omisión podría influir en la calidad y precisión de la armonización. La falta de análisis de estos aspectos podría resultar en la omisión de variables importantes que afectan la interpretación y el uso efectivo de los datos armonizados.
+        
+    %     Por último, el estudio se basa en algoritmos y técnicas de aprendizaje profundo específicos para la armonización de datos. Aunque estas metodologías son avanzadas y efectivas, no se exploran otras posibles técnicas de procesamiento de imágenes o algoritmos de inteligencia artificial que podrían ofrecer enfoques alternativos o complementarios para la armonización de imágenes satelitales. Esta exclusión de otras metodologías potencialmente viables puede limitar el alcance y la profundidad de los hallazgos del estudio.
+    
+    
