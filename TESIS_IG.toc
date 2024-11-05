@@ -1,0 +1,34 @@
+\babel@toc {spanish}{}\relax 
+\contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Motivation}{2}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Problem Statement}{3}{section.1.2}%
+\contentsline {section}{\numberline {1.3}Structure of the Work}{4}{section.1.3}%
+\contentsline {chapter}{\numberline {2}Context analysis}{7}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Datasets}{7}{section.2.1}%
+\contentsline {subsection}{\numberline {2.1.1}OpenImages}{7}{subsection.2.1.1}%
+\contentsline {subsection}{\numberline {2.1.2}Sentinel-2 Dataset}{9}{subsection.2.1.2}%
+\contentsline {subsection}{\numberline {2.1.3}NAIP Dataset}{9}{subsection.2.1.3}%
+\contentsline {subsection}{\numberline {2.1.4}OpenSR dataset}{10}{subsection.2.1.4}%
+\contentsline {subsection}{\numberline {2.1.5}WorldStrat Dataset}{11}{subsection.2.1.5}%
+\contentsline {subsection}{\numberline {2.1.6}Sen2Venus Dataset}{12}{subsection.2.1.6}%
+\contentsline {subsection}{\numberline {2.1.7}Degraded Sentinel-2 Dataset}{13}{subsection.2.1.7}%
+\contentsline {section}{\numberline {2.2}Data Harmonization}{15}{section.2.2}%
+\contentsline {subsection}{\numberline {2.2.1}Effective spatial resolution and PSF}{15}{subsection.2.2.1}%
+\contentsline {subsection}{\numberline {2.2.2}Spatial Co-registration}{16}{subsection.2.2.2}%
+\contentsline {subsection}{\numberline {2.2.3}Cross-instrument calibration and harmonization}{18}{subsection.2.2.3}%
+\contentsline {chapter}{\numberline {3}State of the Art}{19}{chapter.3}%
+\contentsline {section}{\numberline {3.1}SR Design \& Implementation}{19}{section.3.1}%
+\contentsline {subsection}{\numberline {3.1.1}Latent-Diffusion vs Pixel-Space Diffusion}{19}{subsection.3.1.1}%
+\contentsline {subsection}{\numberline {3.1.2}Codebase}{20}{subsection.3.1.2}%
+\contentsline {subsection}{\numberline {3.1.3}Autoencoder}{22}{subsection.3.1.3}%
+\contentsline {subsection}{\numberline {3.1.4}Denoising UNet}{26}{subsection.3.1.4}%
+\contentsline {subsubsection}{\numberline {3.1.4.1}UNet Adaptations}{27}{subsubsection.3.1.4.1}%
+\contentsline {subsection}{\numberline {3.1.5}Multispectral 20m Band SISR Methodology}{29}{subsection.3.1.5}%
+\contentsline {section}{\numberline {3.2}SISR Training Strategy}{30}{section.3.2}%
+\contentsline {paragraph}{RGB-NIR SISR}{30}{paragraph*.17}%
+\contentsline {paragraph}{20m-band Multispectral SISR}{31}{paragraph*.18}%
+\contentsline {subsection}{\numberline {3.2.1}Cross-sensor vs synthetic data}{32}{subsection.3.2.1}%
+\contentsline {chapter}{\numberline {4}Objetives}{33}{chapter.4}%
+\contentsline {section}{\numberline {4.1}General objective}{33}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Specific objectives}{33}{section.4.2}%
+\contentsline {chapter}{References}{34}{chapter*.20}%

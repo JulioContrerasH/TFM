@@ -9,11 +9,11 @@
 % -----------------------------------
 % Gestión de Bibliografía
 % -----------------------------------
-\usepackage[style=apa, backend=biber]{biblatex}
-\addbibresource{3_3_BIBLIOGRAFIA/library.bib} % Carga la bibliografía desde el archivo 'library.bib'
-\usepackage{csquotes} % Mejora la presentación de citas en el texto
-
+% \usepackage[natbibapa]{apacite}
+% \usepackage{natbib}
 \setcounter{tocdepth}{3} % Incluye hasta \paragraph en el índice
+\usepackage[style=apa, backend=biber]{biblatex}
+\addbibresource{3_3_BIBLIOGRAFIA/library.bib}
 
 
 % -----------------------------------
@@ -144,10 +144,7 @@
 % \usepackage[section]{placeins}
 
 
-% ------------------------------------
-% Cambio del Título de Bibliografía
-% ------------------------------------
-\addto\captionsspanish{\renewcommand{\bibname}{\centering Referencias bibliográficas}}
+
 
 
 % ------------------------------------
@@ -339,3 +336,72 @@
   {Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1
   {ñ}{{\~n}}1 {Ñ}{{\~N}}1 {ü}{{\"u}}1 {Ü}{{\"U}}1
 }
+
+
+% -------------------------------------
+% Carátula de la Tesis
+% -------------------------------------
+% -----------------------------------
+\usepackage{newtxtext} % Utiliza la fuente de texto New Times-like
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{titling}
+\usepackage{titlesec}
+\usepackage{hyperref}
+\usepackage{amsmath, amsthm}
+\usepackage{fancyhdr}
+\usepackage{vmargin}
+\setlength{\headheight}{27pt}
+\addtolength{\topmargin}{-15pt}
+
+\definecolor{azulunir}{rgb}{0,0.59,0.80}
+
+% Definición de comandos personalizados para director, nombre de la ciudad y titulación
+\newcommand\director[1]{\def\@director{#1}}
+\newcommand\nombreciudad[1]{\def\@nombreciudad{#1}}
+\newcommand\titulacion[1]{\def\@titulacion{#1}}
+
+% Título y autor configurados
+\title{\huge{Enhancing Spatial Resolution of Sentinel-2 Satellite Images Using Multispectral Fusion and Super-Resolution Models}}
+\titulacion{Master in Artificial Intelligence}
+\author{Julio Cesar Contreras Huerta}
+\date{February 2024}
+\director{Miguel Angel Navarro Burgos}
+\nombreciudad{Valencia}
+
+% Formato de la portada
+\newcommand{\creaportada}{\begingroup  
+\thispagestyle{empty}
+\centering
+\includegraphics[width= 0.8\textwidth]{logo_unir} % Reemplazar con el nombre del archivo del logo
+\vspace{1cm}
+
+\begin{tabular}{!{\color{azulunir}\vrule width 2pt}p{12cm}}
+{\Large {\bf Universidad Internacional de la Rioja (UNIR)}} \\ \vspace{0.1cm}
+{ \huge {\bf Escuela Superior de Ingeniería y Tecnología}} \\ \vspace{0.1cm}
+{ \Large {\bf \@titulacion}}\\ \vspace{1cm}
+{\Huge {\bf {\color{azulunir}{\thetitle} }  }  }
+\end{tabular}
+
+\vfill
+\noindent
+\flushleft{
+{\bf Final Master's Project}\\  \vspace{0.3cm}
+{\bf Presented by:} \theauthor\\  \vspace{0.3cm}
+{\bf Supervised by:} \@director\\
+}
+\vspace{3cm}
+\noindent
+
+{\color{azulunir}{City:}} \@nombreciudad\\
+{\color{azulunir}{Date:}} \thedate
+\newpage
+\thispagestyle{empty}
+\endgroup}
+
+% Configuración de los encabezados y pies de página
+\lhead{}
+\rhead{\theauthor\\\@titulacion}
+\rfoot{\thepage}
+\cfoot[]{}
+
