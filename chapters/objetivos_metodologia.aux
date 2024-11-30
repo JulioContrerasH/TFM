@@ -1,0 +1,224 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\@writefile{toc}{\contentsline {chapter}{\numberline {3}Objetivos y metodología de trabajo}{35}{chapter.3}\protected@file@percent }
+\@writefile{lof}{\addvspace {0\p@ }}
+\@writefile{lot}{\addvspace {0\p@ }}
+\@writefile{toc}{\contentsline {section}{\numberline {3.1}Objetivo General}{35}{section.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3.2}Objetivos Específicos}{35}{section.3.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3.3}Metodología de trabajo}{35}{section.3.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3.1}Obtención y procesamiento de los datos}{36}{subsection.3.3.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces \def 1.655{1.667}\normalsize  \def 1.655{1.655}\normalsize    \textit  {Área de aplicación: ciudad de Valencia}}}{37}{figure.caption.29}\protected@file@percent }
+\newlabel{fig:mapa_valencia}{{6}{37}{\doublespacing \\ \textit {Área de aplicación: ciudad de Valencia}}{figure.caption.29}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.3.1.1}Preprocesamiento de los datos}{37}{subsubsection.3.3.1.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.3.1.2}Imágenes sin nubes}{37}{subsubsection.3.3.1.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.3.1.3}Heterogeneidad espectral}{38}{subsubsection.3.3.1.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.3.1.4}Selección del área de aplicación}{38}{subsubsection.3.3.1.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3.2}Metodología general para la fusión}{38}{subsection.3.3.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.3.2.1}Preparación de datos}{38}{subsubsection.3.3.2.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Bandas de referencia}{39}{paragraph*.30}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Bandas ajustadas}{39}{paragraph*.31}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.3.2.2}Filtrado en el dominio de Fourier}{39}{subsubsection.3.3.2.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.3.2.3}Arquitectura del modelo y SPAN}{39}{subsubsection.3.3.2.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Arquitectura del modelo SPAN, que muestra la secuencia de bloques de atención auto-parametrizados (SPAB) y los módulos convolucionales personalizados (\texttt  {Conv3XC}) utilizados para extraer características a través de convoluciones y conexiones residuales. La sección ampliada ilustra el flujo interno dentro de un bloque SPAB, donde la atención se genera de forma libre de parámetros mediante funciones de activación simétricas, maximizando la representación de características relevantes sin añadir parámetros adicionales. Este esquema destaca cómo el modelo integra mapas de características y mapas de atención para mejorar la resolución de la imagen de entrada. Recuperado de \blx@tocontentsinit {0}\textcite {wan2024swiftparameterfreeattentionnetwork}.}}{41}{figure.caption.32}\protected@file@percent }
+\newlabel{fig:span}{{7}{41}{Arquitectura del modelo SPAN, que muestra la secuencia de bloques de atención auto-parametrizados (SPAB) y los módulos convolucionales personalizados (\texttt {Conv3XC}) utilizados para extraer características a través de convoluciones y conexiones residuales. La sección ampliada ilustra el flujo interno dentro de un bloque SPAB, donde la atención se genera de forma libre de parámetros mediante funciones de activación simétricas, maximizando la representación de características relevantes sin añadir parámetros adicionales. Este esquema destaca cómo el modelo integra mapas de características y mapas de atención para mejorar la resolución de la imagen de entrada. Recuperado de \textcite {wan2024swiftparameterfreeattentionnetwork}}{figure.caption.32}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3.3}Fusión x2: mejora de resolución intermedia}{41}{subsection.3.3.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.3.3.1}Ajustes en la preparación de datos}{41}{subsubsection.3.3.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Bandas de 10 metros}{41}{paragraph*.33}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Bandas de 20 metros}{42}{paragraph*.34}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.3.3.2}Componentes}{42}{subsubsection.3.3.3.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Entrada}{42}{paragraph*.35}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Objetivo}{42}{paragraph*.36}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Salida}{42}{paragraph*.37}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces \def 1.655{1.667}\normalsize  \def 1.655{1.655}\normalsize    \textit  {Proceso de Fusión x2 en Superresolución}}}{43}{figure.caption.38}\protected@file@percent }
+\newlabel{fig:fusionx2_training}{{8}{43}{\doublespacing \\ \textit {Proceso de Fusión x2 en Superresolución}}{figure.caption.38}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.3.3.3}Filtrado en el dominio de Fourier}{43}{subsubsection.3.3.3.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.3.3.4}Configuración del modelo}{44}{subsubsection.3.3.3.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.3.3.5}Función de pérdida y entrenamiento}{46}{subsubsection.3.3.3.5}\protected@file@percent }
+\newlabel{sec:funcion_perdida_fusionx2}{{3.3.3.5}{46}{Función de pérdida y entrenamiento}{subsubsection.3.3.3.5}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces Comparación de la pérdida de entrenamiento para distintas configuraciones del modelo de fusión en super-resolución. En el panel A (izquierda), se observa la pérdida en función de los pasos globales, mostrando la estabilidad de cada configuración a lo largo del entrenamiento. En el panel B (derecha), la pérdida se presenta por épocas, donde las arquitecturas más complejas (Medium, Expanded, Large) convergen más rápidamente y logran menores valores de pérdida, lo que sugiere una mayor capacidad para capturar detalles en la tarea de super-resolución.}}{47}{figure.caption.39}\protected@file@percent }
+\newlabel{fig:loss_train_fusionx2}{{9}{47}{Comparación de la pérdida de entrenamiento para distintas configuraciones del modelo de fusión en super-resolución. En el panel A (izquierda), se observa la pérdida en función de los pasos globales, mostrando la estabilidad de cada configuración a lo largo del entrenamiento. En el panel B (derecha), la pérdida se presenta por épocas, donde las arquitecturas más complejas (Medium, Expanded, Large) convergen más rápidamente y logran menores valores de pérdida, lo que sugiere una mayor capacidad para capturar detalles en la tarea de super-resolución}{figure.caption.39}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3.4}Fusión x4: mejora de resolución a nivel fino}{47}{subsection.3.3.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.3.4.1}Ajustes en la preparación de datos}{47}{subsubsection.3.3.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Bandas de 10 metros}{47}{paragraph*.40}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Bandas de 20 metros}{47}{paragraph*.41}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Bandas de 40 metros}{48}{paragraph*.42}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.3.4.2}Definición de entrada, objetivo y salida}{48}{subsubsection.3.3.4.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.3.4.3}Filtrado en el dominio de Fourier}{48}{subsubsection.3.3.4.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.3.4.4}Configuración del modelo}{48}{subsubsection.3.3.4.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.3.4.5}Integración con el modelo de Fusión x2}{51}{subsubsection.3.3.4.5}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces Diagrama del proceso de Fusión x2 en super-resolución. Las bandas de entrada a 20 metros y las de mayor resolución, preprocesadas con funciones de desenfoque, se integran en el modelo de Fusión x2. Este modelo produce una salida de 10 metros de resolución, combinando la información espacial de las bandas de alta resolución con la riqueza espectral de las de menor resolución. Este paso intermedio sirve para unificar las bandas en una resolución común y optimizar la información para la etapa de Fusión x4.}}{51}{figure.caption.43}\protected@file@percent }
+\newlabel{fig:fusionx4_training}{{10}{51}{Diagrama del proceso de Fusión x2 en super-resolución. Las bandas de entrada a 20 metros y las de mayor resolución, preprocesadas con funciones de desenfoque, se integran en el modelo de Fusión x2. Este modelo produce una salida de 10 metros de resolución, combinando la información espacial de las bandas de alta resolución con la riqueza espectral de las de menor resolución. Este paso intermedio sirve para unificar las bandas en una resolución común y optimizar la información para la etapa de Fusión x4}{figure.caption.43}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.3.4.6}Implementación del filtrado con \textit  {Hard Constraint}}{51}{subsubsection.3.3.4.6}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {11}{\ignorespaces Diagrama del proceso de Fusión x4 en super-resolución. Se muestra la preparación de datos, en la que se aplican funciones de desenfoque (\textit  {Blurring Functions}) para reducir la resolución inicial de las bandas. Las bandas de 20 metros y las de mayor resolución (preprocesadas por el modelo de Fusión x2) son combinadas mediante el modelo de Fusión x4, que genera una salida final de 10 metros de resolución. Este modelo permite aumentar la fidelidad espacial de las bandas, integrando información de diferentes resoluciones para obtener una imagen más detallada y precisa.}}{52}{figure.caption.44}\protected@file@percent }
+\newlabel{fig:fusionx4_training}{{11}{52}{Diagrama del proceso de Fusión x4 en super-resolución. Se muestra la preparación de datos, en la que se aplican funciones de desenfoque (\textit {Blurring Functions}) para reducir la resolución inicial de las bandas. Las bandas de 20 metros y las de mayor resolución (preprocesadas por el modelo de Fusión x2) son combinadas mediante el modelo de Fusión x4, que genera una salida final de 10 metros de resolución. Este modelo permite aumentar la fidelidad espacial de las bandas, integrando información de diferentes resoluciones para obtener una imagen más detallada y precisa}{figure.caption.44}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.3.4.7}Función de pérdida y entrenamiento}{52}{subsubsection.3.3.4.7}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {12}{\ignorespaces Evolución de la pérdida de entrenamiento durante el entrenamiento del modelo de Fusión x4 para diferentes configuraciones de CNN. En el panel A (izquierda), la pérdida se representa en función de los pasos globales, mostrando la estabilidad y comportamiento de cada configuración a medida que avanza el entrenamiento. En el panel B (derecha), se observa la pérdida suavizada, destacando la convergencia de cada arquitectura hacia menores valores de pérdida. Las arquitecturas más complejas, como CNN Expanded, logran menores pérdidas finales, indicando una mayor capacidad para capturar detalles en la super-resolución.}}{54}{figure.caption.45}\protected@file@percent }
+\newlabel{fig:loss_train_fusionx4}{{12}{54}{Evolución de la pérdida de entrenamiento durante el entrenamiento del modelo de Fusión x4 para diferentes configuraciones de CNN. En el panel A (izquierda), la pérdida se representa en función de los pasos globales, mostrando la estabilidad y comportamiento de cada configuración a medida que avanza el entrenamiento. En el panel B (derecha), se observa la pérdida suavizada, destacando la convergencia de cada arquitectura hacia menores valores de pérdida. Las arquitecturas más complejas, como CNN Expanded, logran menores pérdidas finales, indicando una mayor capacidad para capturar detalles en la super-resolución}{figure.caption.45}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.3.4.8}Análisis de la pérdida de testeo}{54}{subsubsection.3.3.4.8}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {13}{\ignorespaces Comparación de la pérdida de testeo para distintas configuraciones de CNN en las etapas de Fusión x2 y Fusión x4. En el panel A (izquierda), se observa la pérdida de testeo para la Fusión x2, con resultados relativamente homogéneos entre arquitecturas, pero con una ligera ventaja en las configuraciones de mayor capacidad. En el panel B (derecha), correspondiente a la Fusión x4, se evidencia una mayor variabilidad, donde las arquitecturas más complejas, como CNN Expanded, logran menores pérdidas, indicando un rendimiento superior en la resolución final de 10 metros.}}{55}{figure.caption.46}\protected@file@percent }
+\newlabel{fig:fusionx2x4_loss_test}{{13}{55}{Comparación de la pérdida de testeo para distintas configuraciones de CNN en las etapas de Fusión x2 y Fusión x4. En el panel A (izquierda), se observa la pérdida de testeo para la Fusión x2, con resultados relativamente homogéneos entre arquitecturas, pero con una ligera ventaja en las configuraciones de mayor capacidad. En el panel B (derecha), correspondiente a la Fusión x4, se evidencia una mayor variabilidad, donde las arquitecturas más complejas, como CNN Expanded, logran menores pérdidas, indicando un rendimiento superior en la resolución final de 10 metros}{figure.caption.46}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.3.4.9}Optimización de la inferencia mediante combinación de convoluciones}{55}{subsubsection.3.3.4.9}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Combinación de convoluciones en \texttt  {Conv3XC}}{55}{paragraph*.47}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Optimización en inferencia}{56}{paragraph*.48}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Beneficios de la optimización}{57}{paragraph*.49}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Implementación práctica}{57}{paragraph*.50}\protected@file@percent }
+\@setckpt{chapters/objetivos_metodologia}{
+\setcounter{page}{59}
+\setcounter{equation}{0}
+\setcounter{enumi}{3}
+\setcounter{enumii}{0}
+\setcounter{enumiii}{0}
+\setcounter{enumiv}{0}
+\setcounter{footnote}{0}
+\setcounter{mpfootnote}{0}
+\setcounter{part}{0}
+\setcounter{chapter}{3}
+\setcounter{section}{3}
+\setcounter{subsection}{4}
+\setcounter{subsubsection}{9}
+\setcounter{paragraph}{0}
+\setcounter{subparagraph}{0}
+\setcounter{figure}{13}
+\setcounter{table}{1}
+\setcounter{tabx@nest}{0}
+\setcounter{listtotal}{0}
+\setcounter{listcount}{0}
+\setcounter{liststart}{0}
+\setcounter{liststop}{0}
+\setcounter{citecount}{0}
+\setcounter{citetotal}{0}
+\setcounter{multicitecount}{0}
+\setcounter{multicitetotal}{0}
+\setcounter{instcount}{112}
+\setcounter{maxnames}{2}
+\setcounter{minnames}{1}
+\setcounter{maxitems}{999}
+\setcounter{minitems}{1}
+\setcounter{citecounter}{0}
+\setcounter{maxcitecounter}{0}
+\setcounter{savedcitecounter}{0}
+\setcounter{uniquelist}{0}
+\setcounter{uniquename}{0}
+\setcounter{refsection}{0}
+\setcounter{refsegment}{0}
+\setcounter{maxextratitle}{0}
+\setcounter{maxextratitleyear}{0}
+\setcounter{maxextraname}{3}
+\setcounter{maxextradate}{2}
+\setcounter{maxextraalpha}{0}
+\setcounter{abbrvpenalty}{50}
+\setcounter{highnamepenalty}{50}
+\setcounter{lownamepenalty}{25}
+\setcounter{maxparens}{3}
+\setcounter{parenlevel}{0}
+\setcounter{blx@maxsection}{0}
+\setcounter{mincomprange}{10}
+\setcounter{maxcomprange}{100000}
+\setcounter{mincompwidth}{1}
+\setcounter{afterword}{0}
+\setcounter{savedafterword}{0}
+\setcounter{annotator}{0}
+\setcounter{savedannotator}{0}
+\setcounter{author}{0}
+\setcounter{savedauthor}{0}
+\setcounter{bookauthor}{0}
+\setcounter{savedbookauthor}{0}
+\setcounter{commentator}{0}
+\setcounter{savedcommentator}{0}
+\setcounter{editor}{0}
+\setcounter{savededitor}{0}
+\setcounter{editora}{0}
+\setcounter{savededitora}{0}
+\setcounter{editorb}{0}
+\setcounter{savededitorb}{0}
+\setcounter{editorc}{0}
+\setcounter{savededitorc}{0}
+\setcounter{foreword}{0}
+\setcounter{savedforeword}{0}
+\setcounter{holder}{0}
+\setcounter{savedholder}{0}
+\setcounter{introduction}{0}
+\setcounter{savedintroduction}{0}
+\setcounter{namea}{0}
+\setcounter{savednamea}{0}
+\setcounter{nameb}{0}
+\setcounter{savednameb}{0}
+\setcounter{namec}{0}
+\setcounter{savednamec}{0}
+\setcounter{translator}{0}
+\setcounter{savedtranslator}{0}
+\setcounter{shortauthor}{0}
+\setcounter{savedshortauthor}{0}
+\setcounter{shorteditor}{0}
+\setcounter{savedshorteditor}{0}
+\setcounter{narrator}{0}
+\setcounter{savednarrator}{0}
+\setcounter{execproducer}{0}
+\setcounter{savedexecproducer}{0}
+\setcounter{execdirector}{0}
+\setcounter{savedexecdirector}{0}
+\setcounter{with}{0}
+\setcounter{savedwith}{0}
+\setcounter{labelname}{0}
+\setcounter{savedlabelname}{0}
+\setcounter{institution}{0}
+\setcounter{savedinstitution}{0}
+\setcounter{lista}{0}
+\setcounter{savedlista}{0}
+\setcounter{listb}{0}
+\setcounter{savedlistb}{0}
+\setcounter{listc}{0}
+\setcounter{savedlistc}{0}
+\setcounter{listd}{0}
+\setcounter{savedlistd}{0}
+\setcounter{liste}{0}
+\setcounter{savedliste}{0}
+\setcounter{listf}{0}
+\setcounter{savedlistf}{0}
+\setcounter{location}{0}
+\setcounter{savedlocation}{0}
+\setcounter{organization}{0}
+\setcounter{savedorganization}{0}
+\setcounter{origlocation}{0}
+\setcounter{savedoriglocation}{0}
+\setcounter{origpublisher}{0}
+\setcounter{savedorigpublisher}{0}
+\setcounter{publisher}{0}
+\setcounter{savedpublisher}{0}
+\setcounter{language}{0}
+\setcounter{savedlanguage}{0}
+\setcounter{origlanguage}{0}
+\setcounter{savedoriglanguage}{0}
+\setcounter{citation}{0}
+\setcounter{savedcitation}{0}
+\setcounter{pageref}{0}
+\setcounter{savedpageref}{0}
+\setcounter{textcitecount}{1}
+\setcounter{textcitetotal}{1}
+\setcounter{textcitemaxnames}{0}
+\setcounter{biburlbigbreakpenalty}{100}
+\setcounter{biburlbreakpenalty}{200}
+\setcounter{biburlnumpenalty}{0}
+\setcounter{biburlucpenalty}{0}
+\setcounter{biburllcpenalty}{0}
+\setcounter{smartand}{0}
+\setcounter{bbx:relatedcount}{0}
+\setcounter{bbx:relatedtotal}{0}
+\setcounter{cp@cntr}{0}
+\setcounter{float@type}{8}
+\setcounter{lofdepth}{1}
+\setcounter{lotdepth}{1}
+\setcounter{section@level}{0}
+\setcounter{Item}{11}
+\setcounter{Hfootnote}{0}
+\setcounter{Hy@AnnotLevel}{0}
+\setcounter{bookmark@seq@number}{88}
+\setcounter{parentequation}{0}
+\setcounter{lstnumber}{8}
+\setcounter{caption@flags}{2}
+\setcounter{continuedfloat}{0}
+\setcounter{subfigure}{0}
+\setcounter{subtable}{0}
+\setcounter{ChapterRoman}{0}
+\setcounter{lstlisting}{0}
+}

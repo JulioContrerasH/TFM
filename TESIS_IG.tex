@@ -5,6 +5,7 @@
 \begin{document}
 	\creaportada
 	\renewcommand\contentsname{\centering TABLE OF CONTENTS }
+	\pagenumbering{gobble}
 	\tableofcontents	
 	
 	% \include{1_4_RESUMEN/Resumen}
@@ -31,11 +32,15 @@
 	% %Parte CENTRAL DE LA TESIS
 	
 	\mainmatter 
-
-	\include{chapters/introduction}
-	\include{chapters/context_analysis}
-	\include{chapters/state_of_the_art}
-	\include{chapters/objetives}
+	
+	\clearpage
+	\pagenumbering{arabic} % Comienza la numeración en números arábigos
+	\setcounter{page}{1} % Comienza la numeración desde la página 1
+	
+	\include{chapters/introduccion}
+	\include{chapters/contexto_estado_arte}
+	\include{chapters/objetivos_metodologia}
+	\include{chapters/cap4_to_cap6}
 	
 	% \include{2_CAPITULO1/Capitulo1} % INTRODUCTION
 	% PLAN DE TESIS

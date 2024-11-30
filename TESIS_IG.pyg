@@ -1,0 +1,6 @@
+# Preparar el modelo para la inferencia
+fusionx2_model.train_mode = False
+fusionx2_model.eval()
+# Procesar las imágenes de entrada
+with torch.no_grad():
+    output = fusionx2_model(input_images)

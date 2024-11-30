@@ -1,0 +1,1060 @@
+dataloaderfusionx2.py:
+import torch
+import pathlib
+import numpy as np
+import rasterio as rio
+import torch.utils.data
+import pytorch_lightning as pl
+
+from sklearn.model_selection import train_test_split
+from typing import Union
+
+class DataLoader(torch.utils.data.Dataset):
+    def __init__(self, files: list, deterministic=False):
+        self.files = files
+        self.deterministic = deterministic
+        
+    def __len__(self):
+        return len(self.files)
+
+    def __getitem__(self, index: int):
+        
+        # Retrieve the data from the local disk
+        # All the bands are at 10 meters but using nearest neighbor interpolation
+        with rio.open(self.files[index]) as src:
+            sample = src.read()
+        
+        # 20 meter bands (at 10 meters)
+        bands_20m = [4, 5, 6, 8, 11, 12]
+        bands_20m_data = torch.from_numpy(sample[bands_20m]).float() / 10000.0
+        
+        if self.deterministic:
+            bands_20m_data_256 = bands_20m_data[:, 128:384, 128:384]
+        else:
+            C, H, W = bands_20m_data.shape
+            crop_x = np.random.randint(0, W - 256)
+            crop_y = np.random.randint(0, H - 256)
+            bands_20m_data_256 = bands_20m_data[:, crop_y:crop_y+256, crop_x:crop_x+256]
+
+        # Convert back to 20 meters
+        bands_20m_data_128 = torch.nn.functional.interpolate(
+            bands_20m_data_256[None],
+            scale_factor=0.5,
+            mode="bilinear",
+            antialias=True
+        ).squeeze(0)
+
+        # from 20 meters to 40 meters (Input data)
+        bands_40m_data_64 = torch.nn.functional.interpolate(
+            bands_20m_data_128[None],
+            scale_factor=0.5,
+            mode="bilinear",
+            antialias=True
+        ).squeeze(0)        
+
+        # from 40 meters to 20 meters (Input data)
+        bands_40m_data_128 = torch.nn.functional.interpolate(
+            bands_40m_data_64[None],
+            scale_factor=2,
+            mode="bilinear",
+            antialias=True
+        ).squeeze(0)        
+                
+        # 10 meter bands
+        rgbn_bands_10m = [1, 2, 3, 7]
+        rgbn_bands_10m_data = torch.from_numpy(sample[rgbn_bands_10m]).float() / 10000.0
+
+        if self.deterministic:
+            rgbn_bands_10m_data_256 = rgbn_bands_10m_data[:, 128:384, 128:384]
+        else:
+            rgbn_bands_10m_data_256 = rgbn_bands_10m_data[:, crop_y:crop_y+256, crop_x:crop_x+256]
+
+        # Convert 10 meters to 20 meters
+        rgbn_bands_20m_data_128 = torch.nn.functional.interpolate(
+            rgbn_bands_10m_data_256[None],
+            scale_factor=0.5,
+            mode="bilinear",
+            antialias=True
+        ).squeeze(0)
+
+        # define the target        
+        target = bands_20m_data_128
+        input_data = torch.cat([bands_40m_data_128, rgbn_bands_20m_data_128], dim=0)        
+
+        return input_data, target
+
+
+class DataModule(pl.LightningDataModule):
+    def __init__(
+        self,
+        path: Union[str, pathlib.Path],
+        batch_size=4,
+        dataloader_cpu_workers=4
+    ):
+        super().__init__()
+
+        # Load the metadata from the MLSTAC Collection file
+        self.path = pathlib.Path(path)
+        self.files = list(self.path.glob("*.tif"))
+        self.files.sort()
+
+        # Split train vs test        
+        self.train_files, self.test_files = train_test_split(self.files, test_size=0.1, random_state=42)
+
+        # Parameters
+        self.batch_size = batch_size
+        self.dataloader_cpu_workers = dataloader_cpu_workers
+
+    def train_dataloader(self):
+        return torch.utils.data.DataLoader(
+            DataLoader(self.train_files, deterministic=False),
+            batch_size=self.batch_size,
+            shuffle=True,
+            num_workers=self.dataloader_cpu_workers,                  
+        )
+
+    def test_dataloader(self):
+        return torch.utils.data.DataLoader(
+            DataLoader(self.test_files, deterministic=True),
+            batch_size=self.batch_size,
+            shuffle=False,
+            num_workers=self.dataloader_cpu_workers
+        )
+
+
+experimentsx2.py:
+cnn_lightweight = {
+    "in_channels": 10,
+    "out_channels": 6,
+    "feature_channels": 24,
+    "upscale": 1,
+    "bias": True,
+    "train_mode": True,
+    "num_blocks": 6,
+}
+
+cnn_small = {
+    "in_channels": 10,
+    "out_channels": 6,
+    "feature_channels": 48,
+    "upscale": 1,
+    "bias": True,
+    "train_mode": True,
+    "num_blocks": 16,
+}
+
+cnn_medium = {
+    "in_channels": 10,
+    "out_channels": 6,
+    "feature_channels": 72,
+    "upscale": 1,
+    "bias": True,
+    "train_mode": True,
+    "num_blocks": 20
+}
+
+cnn_expanded = {
+    "in_channels": 10,
+    "out_channels": 6,
+    "feature_channels": 96,
+    "upscale": 1,
+    "bias": True,
+    "train_mode": True,
+    "num_blocks": 24,
+}
+
+cnn_large = {
+    "in_channels": 10,
+    "out_channels": 6,
+    "feature_channels": 150,
+    "upscale": 1,
+    "bias": True,
+    "train_mode": True,
+    "num_blocks": 36,
+}
+
+
+swin_lightweight = {
+    "img_size": (128, 128),
+    "in_channels": 10,
+    "out_channels": 6,
+    "embed_dim": 72,
+    "depths": [4, 4, 4, 4],
+    "num_heads": [4, 4, 4, 4],
+    "window_size": 4,
+    "mlp_ratio": 2.0,
+    "upscale": 4,
+    "resi_connection": "1conv",
+    "upsampler": "pixelshuffledirect",
+}
+
+
+swin_small = {
+    "img_size": (128, 128),
+    "in_channels": 10,
+    "out_channels": 6,
+    "embed_dim": 96,
+    "depths": [6] * 6,
+    "num_heads": [6] * 6,
+    "window_size": 8,
+    "mlp_ratio": 2.0,
+    "upscale": 4,
+    "resi_connection": "1conv",
+    "upsampler": "pixelshuffle",
+}
+
+
+swin_medium = {
+    "img_size": (128, 128),
+    "in_channels": 10,
+    "out_channels": 6,
+    "embed_dim": 120,
+    "depths": [8] * 8,
+    "num_heads": [8] * 8,
+    "window_size": 8,
+    "mlp_ratio": 4.0,
+    "upscale": 4,
+    "resi_connection": "1conv",
+    "upsampler": "pixelshuffle",
+}
+
+
+swin_expanded = {
+    "img_size": (64, 64),
+    "in_channels": 10,
+    "out_channels": 6,
+    "embed_dim": 192,
+    "depths": [8] * 8,
+    "num_heads": [8] * 8,
+    "window_size": 4,
+    "mlp_ratio": 4.0,
+    "upscale": 4,
+    "resi_connection": "1conv",
+    "upsampler": "pixelshuffle",
+}
+
+mamba_lightweight = {
+    "img_size": (128, 128),
+    "in_channels": 10,
+    "out_channels": 6,
+    "embed_dim": 32,
+    "depths": [4, 4, 4, 4],
+    "num_heads": [4, 4, 4, 4],    
+    "mlp_ratio": 2,
+    "upscale": 4,
+    "window_size": 4,
+    "attention_type": "sigmoid_02",
+    "upsampler": "pixelshuffledirect",
+    "resi_connection": "1conv",
+    "operation_attention": "sum",
+}
+
+
+mamba_small = {
+    "img_size": (128, 128),
+    "in_channels": 10,
+    "out_channels": 6,
+    "embed_dim": 64,
+    "depths": [6, 6, 6, 6],
+    "num_heads": [6, 6, 6],
+    "mlp_ratio": 2,
+    "upscale": 4,
+    "attention_type": "sigmoid_02",
+    "upsampler": "pixelshuffle",
+    "resi_connection": "1conv",
+    "operation_attention": "sum",
+}
+
+
+mamba_medium = {
+    "img_size": (128, 128),
+    "in_channels": 10,
+    "out_channels": 6,
+    "embed_dim": 96,
+    "depths": [8, 8, 8, 8, 8, 8],
+    "num_heads": [8, 8, 8, 8, 8, 8],
+    "mlp_ratio": 4,
+    "upscale": 4,
+    "attention_type": "sigmoid_02",
+    "upsampler": "pixelshuffle",
+    "resi_connection": "1conv",
+    "operation_attention": "sum",
+}
+
+
+mamba_expanded = {
+    "img_size": (128, 128),
+    "in_channels": 10,
+    "out_channels": 6,
+    "embed_dim": 120,
+    "depths": [8, 8, 8, 8, 8, 8],
+    "num_heads": [8, 8, 8, 8, 8, 8],
+    "mlp_ratio": 4,
+    "upscale": 4,
+    "attention_type": "sigmoid_02",
+    "upsampler": "pixelshuffle",
+    "resi_connection": "1conv",
+    "operation_attention": "sum",
+}
+
+
+loss.py:
+    
+from typing import Optional
+
+import lpips
+import open_clip
+import torch
+import torchvision
+from huggingface_hub import hf_hub_download
+
+
+class TruncatedVGG19(torch.nn.Module):
+    """
+    A truncated VGG19 network, where the output is the feature map obtained by the
+    j-th convolution (after activation) before the i-th maxpooling layer within
+    the VGG19 network, as defined in the paper.
+
+    This truncated network is used to calculate the Mean Squared Error (MSE)
+    loss in the VGG feature-space, known as the VGG loss.
+    """
+
+    def __init__(self, i: Optional[int] = 5, j: Optional[int] = 4) -> None:
+        """Initialize the TruncatedVGG19 model.
+
+        Args:
+            i (int): The index of the maxpooling layer (1-based index).
+            j (int): The index of the convolution layer after the (i-1)-th
+                maxpooling layer (1-based index).
+        """
+
+        super(TruncatedVGG19, self).__init__()
+
+        # Load the pre-trained VGG19 model available in torchvision
+        vgg19 = torchvision.models.vgg19(
+            weights=torchvision.models.VGG19_Weights.DEFAULT
+        )
+
+        maxpool_counter = 0
+        conv_counter = 0
+        truncate_at = 0
+
+        # Iterate through the convolutional section ("features") of the VGG19
+        for layer in vgg19.features.children():
+            truncate_at += 1
+
+            # Count the number of convolutional and maxpool layers
+            if isinstance(layer, torch.nn.Conv2d):
+                conv_counter += 1
+            if isinstance(layer, torch.nn.MaxPool2d):
+                maxpool_counter += 1
+                conv_counter = 0  # Reset conv counter after each maxpool layer
+
+            # Break if we reach the j-th convolution after the (i-1)-th maxpool
+            if maxpool_counter == i - 1 and conv_counter == j:
+                break
+
+        # Ensure the chosen i and j are valid
+        assert (
+            maxpool_counter == i - 1 and conv_counter == j
+        ), f"Invalid i={i} and/or j={j} for the VGG19!"
+
+        # Truncate the VGG19 model to the desired layer
+        self.truncated_vgg19 = torch.nn.Sequential(
+            *list(vgg19.features.children())[: truncate_at + 1]
+        )
+
+    def forward(self, input: torch.Tensor) -> torch.Tensor:
+        """
+        Forward pass through the truncated VGG19 network.
+
+        Args:
+            param input: High-resolution or super-resolution images, a tensor of size (N, 3, H, W).
+        return: The specified VGG19 feature map, a tensor of size (N, C, H_out, W_out).
+        """
+
+        # Get the output feature map from the truncated VGG19
+        output = self.truncated_vgg19(input)
+
+        return output
+
+
+class l1_loss(torch.nn.Module):
+    def __init__(self):
+        super().__init__()
+
+    def forward(self, x, y):
+        return torch.mean(torch.abs(x - y))
+
+
+class fourier_l1_loss(torch.nn.Module):
+    def __init__(self):
+        super(fourier_l1_loss, self).__init__()
+
+    def forward(self, x, y):
+        # Apply 2D Fourier Transform to both inputs
+        x_f = torch.fft.fft2(x, norm="ortho")
+        y_f = torch.fft.fft2(y, norm="ortho")
+
+        # Compute the L1 loss in the Fourier domain
+        return torch.mean(torch.abs(x_f - y_f))
+
+
+class normalize_difference_loss(torch.nn.Module):
+    def __init__(self):
+        super().__init__()
+
+    def forward(self, x: torch.Tensor, y: torch.Tensor) -> torch.Tensor:
+        return torch.mean(torch.abs(x - y) / (x + y))
+
+
+class lpips_loss(torch.nn.Module):
+    def __init__(
+        self,
+        to_true_color: bool = True,
+        rgb_bands: list = [0, 1, 2],
+        device: str = "cuda:0",
+    ):
+        super().__init__()
+        self.loss_fn_alex = lpips.LPIPS(net="alex")
+        self.to_true_color = to_true_color
+        self.rgb_bands = rgb_bands
+        device = torch.device(device)
+        if device != "cpu":
+            self.loss_fn_alex = self.loss_fn_alex.to(device)
+            self.loss_fn_alex.eval()
+
+    def forward(self, x, y):
+        # Normalize the images to the range [0, 1]
+        if self.to_true_color:
+            # To convert from reflectance to true colors
+            x = torch.clamp(x * 3, 0, 1)
+            y = torch.clamp(y * 3, 0, 1)
+
+        # Normalize the images to the range [-1, 1]
+        sr_1 = x[:, self.rgb_bands] * 2 - 1
+        hr_1 = y[:, self.rgb_bands] * 2 - 1
+
+        return self.loss_fn_alex(sr_1, hr_1).mean()
+
+
+class clip_general_loss(torch.nn.Module):
+    def __init__(
+        self,
+        to_true_color: bool = True,
+        rgb_bands: list = [0, 1, 2],
+        device: str = "cuda:0",
+    ):
+        super().__init__()
+        self.clip_model, _, _ = open_clip.create_model_and_transforms(
+            "ViT-B-16-SigLIP-256", pretrained="webli"
+        )
+        self.clip_model.eval()
+        self.to_true_color = to_true_color
+        self.rgb_bands = rgb_bands
+        self.mean_norm = torch.tensor((0.48145466, 0.4578275, 0.40821073))
+        self.std_norm = torch.tensor((0.26862954, 0.26130258, 0.27577711))
+        device = torch.device(device)
+
+        if device != "cpu":
+            self.clip_model = self.clip_model.to(device)
+            self.mean_norm = self.mean_norm.to(device)
+            self.std_norm = self.std_norm.to(device)
+
+    def forward(self, x, y):
+        # Random crop to get 256x256 images
+        _, _, H, W = x.shape
+        if H > 256 or W > 256:
+            random_number_x = torch.randint(0, W - 256, (1,)).item()
+            random_number_y = torch.randint(0, H - 256, (1,)).item()
+        elif H == 256 and W == 256:
+            random_number_x = 0
+            random_number_y = 0
+        else:
+            raise ValueError("The images must be at least 256x256 pixels")
+
+        x = x[
+            :,
+            :,
+            random_number_y : random_number_y + 256,
+            random_number_x : random_number_x + 256,
+        ]
+        y = y[
+            :,
+            :,
+            random_number_y : random_number_y + 256,
+            random_number_x : random_number_x + 256,
+        ]
+
+        # Normalize the images to the range [0, 1]
+        if self.to_true_color:
+            x = torch.clamp(x * 3, 0, 1)
+            y = torch.clamp(y * 3, 0, 1)
+
+        # Normalize the images B,C,H,W with a 1D tensor of 3 elements
+        x = (
+            x[:, self.rgb_bands] - self.mean_norm[None, :, None, None]
+        ) / self.std_norm[None, :, None, None]
+        y = (
+            y[:, self.rgb_bands] - self.mean_norm[None, :, None, None]
+        ) / self.std_norm[None, :, None, None]
+
+        # Calculate the similarity
+        emb_sr = self.clip_model.encode_image(x)
+        emb_hr = self.clip_model.encode_image(y)
+        l1_loss = torch.nn.functional.l1_loss(emb_sr, emb_hr)
+
+        return l1_loss
+
+
+class clip_rs_loss(torch.nn.Module):
+    def __init__(
+        self,
+        to_true_color: bool = True,
+        rgb_bands: list = [0, 1, 2],
+        device: str = "cuda:0",
+    ):
+        super().__init__()
+
+        hf_hub_download(
+            "chendelong/RemoteCLIP", "RemoteCLIP-ViT-L-14.pt", cache_dir="checkpoints"
+        )
+
+        self.clip_model, _, _ = open_clip.create_model_and_transforms("ViT-L-14")
+        self.mean_norm = torch.tensor((0.48145466, 0.4578275, 0.40821073))
+        self.std_norm = torch.tensor((0.26862954, 0.26130258, 0.27577711))
+        self.eval()
+
+        self.to_true_color = to_true_color
+        self.rgb_bands = rgb_bands
+        device = torch.device(device)
+
+        if device != "cpu":
+            self.clip_model = self.clip_model.to(device)
+            self.mean_norm = self.mean_norm.to(device)
+            self.std_norm = self.std_norm.to(device)
+
+    def forward(self, sr, hr):
+        # Random crop to get 224x224 images
+        B, C, H, W = sr.shape
+        if H > 224 or W > 224:
+            random_number_x = torch.randint(0, W - 224, (1,)).item()
+            random_number_y = torch.randint(0, H - 224, (1,)).item()
+        elif H == 224 and W == 224:
+            random_number_x = 0
+            random_number_y = 0
+        else:
+            raise ValueError("The images must be at least 224x224 pixels")
+
+        # Crop the images
+        sr_cropped = sr[
+            :,
+            :,
+            random_number_y : random_number_y + 224,
+            random_number_x : random_number_x + 224,
+        ]
+        hr_cropped = hr[
+            :,
+            :,
+            random_number_y : random_number_y + 224,
+            random_number_x : random_number_x + 224,
+        ]
+
+        # Normalize the images to the range [0, 1]
+        if self.to_true_color:
+            sr = torch.clamp(sr_cropped * 3, 0, 1)
+            hr = torch.clamp(hr_cropped * 3, 0, 1)
+
+        # Normalize the images with the mean and standard deviation
+        sr = (
+            sr[:, self.rgb_bands] - self.mean_norm[None, :, None, None]
+        ) / self.std_norm[None, :, None, None]
+        hr = (
+            hr[:, self.rgb_bands] - self.mean_norm[None, :, None, None]
+        ) / self.std_norm[None, :, None, None]
+
+        # Calculate the similarity
+        emb_sr = self.clip_model.encode_image(sr)
+        emb_hr = self.clip_model.encode_image(hr)
+        l1_loss = torch.nn.functional.l1_loss(emb_sr, emb_hr)
+
+        return l1_loss
+
+
+class vgg_loss(torch.nn.Module):
+    def __init__(
+        self,
+        to_true_color: bool = True,
+        rgb_bands: list = [0, 1, 2],
+        device: str = "cuda:0",
+    ):
+        super().__init__()
+        self.vgg_loss = TruncatedVGG19(i=5, j=4)
+        self.to_true_color = to_true_color
+        self.rgb_bands = rgb_bands
+        self.mean_norm = torch.tensor((0.485, 0.456, 0.406))
+        self.std_norm = torch.tensor((0.229, 0.224, 0.225))
+        device = torch.device(device)
+        if device != "cpu":
+            self.vgg_loss = self.vgg_loss.to(device)
+            self.mean_norm = self.mean_norm.to(device)
+            self.std_norm = self.std_norm.to(device)
+            self.vgg_loss.eval()
+
+    def forward(self, x, y):
+        # Random crop to get 224x224 images
+        B, C, H, W = x.shape
+        if H > 224 or W > 224:
+            random_number_x = torch.randint(0, W - 224, (1,)).item()
+            random_number_y = torch.randint(0, H - 224, (1,)).item()
+        elif H == 224 and W == 224:
+            random_number_x = 0
+            random_number_y = 0
+        else:
+            raise ValueError("The images must be at least 224x224 pixels")
+
+        # Crop the images
+        x = x[
+            :,
+            :,
+            random_number_y : random_number_y + 224,
+            random_number_x : random_number_x + 224,
+        ]
+        y = y[
+            :,
+            :,
+            random_number_y : random_number_y + 224,
+            random_number_x : random_number_x + 224,
+        ]
+
+        # Normalize the images to the range [0, 1]
+        if self.to_true_color:
+            x = torch.clamp(x * 3, 0, 1)
+            y = torch.clamp(y * 3, 0, 1)
+
+        # Normalize the images with the mean and standard deviation
+        x = (
+            x[:, self.rgb_bands] - self.mean_norm[None, :, None, None]
+        ) / self.std_norm[None, :, None, None]
+        y = (
+            y[:, self.rgb_bands] - self.mean_norm[None, :, None, None]
+        ) / self.std_norm[None, :, None, None]
+
+        # Create the image embeddings
+        emb_sr = self.vgg_loss(x)
+        emb_hr = self.vgg_loss(y)
+
+        return torch.nn.functional.l1_loss(emb_sr, emb_hr)
+
+
+class super_loss(torch.nn.Module):
+    def __init__(
+        self,
+        to_true_color: bool = True,
+        rgb_bands: list = [0, 1, 2],
+        device: str = "cuda:0",
+    ):
+        super().__init__()
+
+        # Set the true color
+        self.to_true_color = to_true_color
+        self.rgb_bands = rgb_bands
+
+        # Define the LPIPS loss
+        self.loss_fn_alex = lpips.LPIPS(net="alex")
+        for param in self.loss_fn_alex.parameters():
+            param.requires_grad = False
+
+        # Load the CLIP model
+        self.clip_model, _, _ = open_clip.create_model_and_transforms(
+            "ViT-B-16-SigLIP-256", pretrained="webli"
+        )
+        for param in self.clip_model.parameters():
+            param.requires_grad = False
+
+        # Normalize the image (for CLIP)
+        self.mean_norm = torch.tensor((0.485, 0.456, 0.406))
+        self.std_norm = torch.tensor((0.229, 0.224, 0.225))
+        device = torch.device(device)
+
+        if device != "cpu":
+            self.loss_fn_alex = self.loss_fn_alex.to(device)
+            self.clip_model = self.clip_model.to(device)
+            self.mean_norm = self.mean_norm.to(device)
+            self.std_norm = self.std_norm.to(device)
+
+        # Define the hyperparameters
+        self.lambda1 = 17.7474
+        self.lambda2 = 0.8778
+        self.lambda3 = 2.4049
+
+    def forward(self, x, y):
+        # Calculate the L1 loss
+        l1_loss = torch.nn.functional.l1_loss(x, y)
+
+        # Convert to reflectance to true colors
+        if self.to_true_color:
+            x = torch.clamp(x * 3, 0, 1)
+            y = torch.clamp(y * 3, 0, 1)
+
+        # Random crop to get 256x256 images
+        _, _, H, W = x.shape
+        if H > 256 or W > 256:
+            random_number_x = torch.randint(0, W - 256, (1,)).item()
+            random_number_y = torch.randint(0, H - 256, (1,)).item()
+        elif H == 256 and W == 256:
+            random_number_x = 0
+            random_number_y = 0
+        else:
+            raise ValueError("The images must be at least 256x256 pixels")
+
+        x_cropped = x[
+            :,
+            :,
+            random_number_y : random_number_y + 256,
+            random_number_x : random_number_x + 256,
+        ]
+        y_cropped = y[
+            :,
+            :,
+            random_number_y : random_number_y + 256,
+            random_number_x : random_number_x + 256,
+        ]
+
+        # Calculate the LPIPS loss
+        sr_1 = x_cropped[:, self.rgb_bands] * 2 - 1
+        hr_1 = y_cropped[:, self.rgb_bands] * 2 - 1
+        lpips_loss = self.loss_fn_alex(sr_1, hr_1).mean()
+
+        # Normalize the images for CLIP
+        x_cropped_norm = (
+            x_cropped[:, self.rgb_bands] - self.mean_norm[None, :, None, None]
+        ) / self.std_norm[None, :, None, None]
+        y_cropped_norm = (
+            y_cropped[:, self.rgb_bands] - self.mean_norm[None, :, None, None]
+        ) / self.std_norm[None, :, None, None]
+
+        # Calculate the CLIP loss
+        emb_sr = self.clip_model.encode_image(x_cropped_norm)
+        emb_hr = self.clip_model.encode_image(y_cropped_norm)
+        clip_loss = torch.nn.functional.l1_loss(emb_sr, emb_hr)
+
+        # total loss
+        total_loss = (
+            self.lambda1 * l1_loss * 2
+            + self.lambda2 * lpips_loss
+            + self.lambda3 * clip_loss
+        )
+
+        return total_loss
+
+trainfusionx2.py:
+    
+import os
+import wandb
+import pathlib
+
+import pytorch_lightning as pl
+import torch
+import typer
+import wandb
+
+from dataloaderfusionx2 import DataModule
+from models.fourier_trick import CNNHardConstraint
+import utils
+
+torch.set_float32_matmul_precision('medium')
+
+# set the token
+os.environ["WANDB_API_KEY"] = "292fd80f458c18b8754662fed761021e4fbebe6d"
+
+app = typer.Typer()
+
+
+# Create the pytorch lightning model
+class SRtraining(pl.LightningModule):
+    def __init__(
+        self,
+        sr_model,
+        loss_fn,
+        learning_rate,
+        scheduler,
+        fourier_trick,
+        image_size=(128, 128),
+        scale_factor=1,
+        device="cuda:0",
+    ):
+        super().__init__()
+        self.model = sr_model
+        self.loss = loss_fn
+        self.learning_rate = learning_rate
+        self.scheduler = scheduler
+        self.fourier_trick = fourier_trick
+        self.hard_constraint = CNNHardConstraint(
+            filter_method="butterworth",
+            filter_hyperparameters={"order": 6},
+            scale_factor=scale_factor*2,
+            in_channels=6,
+            out_channels=[0, 1, 2, 3, 4, 5],
+            device=device,
+        )
+        self.image_size = image_size[0]
+
+    def forward(self, x):
+        if self.fourier_trick:
+            return self.hard_constraint(x.float(), self.model(x.float()))
+        return self.model(x.float())
+
+    def training_step(self, batch, batch_idx):
+        lr, hr = batch
+        sr = self(lr)        
+        loss = self.loss(sr, hr)        
+        self.log("train_loss", loss, on_epoch=True, on_step=True)
+        return loss
+
+    def test_step(self, batch, batch_idx):
+        lr, hr = batch
+        sr = self(lr)
+        loss = self.loss(sr, hr)
+        self.log("test_loss", loss, on_epoch=True, on_step=True)
+        return loss
+
+    def configure_optimizers(self):
+        if not self.scheduler:            
+            optimizer = torch.optim.AdamW(self.parameters(), lr=self.learning_rate)
+            return optimizer
+        else:
+            optimizer = torch.optim.AdamW(self.parameters(), lr=self.learning_rate)
+            scheduler = torch.optim.lr_scheduler.CyclicLR(
+                optimizer, base_lr=1e-5, max_lr=1e-3, step_size_up=1000
+            )
+            return [optimizer], [scheduler]
+
+#model_name="cnn";model_size="medium";loss_name="l1";learning_rate=1e-4;scheduler=True;experiment_name="cnn__small__super_loss_fourier_trick";device="cuda:0";batch_size=2;dataloader_cpu_workers=16;fine_tune=False;fourier_trick=True; wandb_logging=False; max_epochs=2
+@app.command()
+def main(
+    model_name: utils.ModelName,
+    model_size: utils.ModelSize,
+    loss_name: utils.LossName,
+    datapath: str,
+    checkpoint_path: str = "checkpoints",
+    modeloutput_path: str = "models",
+    learning_rate: float = 1e-4,
+    scheduler: bool = True,
+    fourier_trick: bool = True,
+    device: str = "cuda:0",
+    max_epochs: int = 10,
+    batch_size: int = 1,
+    dataloader_cpu_workers: int = 4,
+    wandb_logging: bool = True
+):  
+    # Create the folders
+    pathlib.Path(checkpoint_path).mkdir(parents=True, exist_ok=True)
+    pathlib.Path(modeloutput_path).mkdir(parents=True, exist_ok=True)
+
+    # Typer is fucking stupid
+    model_name = model_name.value
+    model_size = model_size.value
+    loss_name = loss_name.value
+
+    # Finish the previous run if it exists
+    if wandb_logging:
+        wandb.finish()
+    
+    # Create the model experiment
+    sr_model = utils.load_model(
+        model_name=model_name,
+        model_size=model_size,
+    )
+    
+    # Set the loss function
+    loss_fn = utils.load_loss(
+        loss_name=loss_name,
+        device=device
+    )
+
+    sr_model_lit = SRtraining(
+        sr_model=sr_model,
+        loss_fn=loss_fn,
+        learning_rate=learning_rate,
+        scheduler=scheduler,
+        fourier_trick=fourier_trick,
+        device=device
+    )
+    
+    # Set the experiment name
+    experiment_name = f"{model_name}__{model_size}__{loss_name}__{fourier_trick}"
+
+    # callback
+    #checkpoint_path="/media/disk/databases/LuisGomez/OpenSR/fusion_dataset_results/raw"
+    #modeloutput_path="/media/disk/databases/LuisGomez/OpenSR/fusion_dataset_results/final"
+    #datapath="/media/disk/databases/LuisGomez/OpenSR/fusion_dataset"
+    checkpoint_callback = pl.callbacks.ModelCheckpoint(
+        dirpath=checkpoint_path,
+        monitor="train_loss",
+        filename=experiment_name,
+        mode="min",
+    )
+    early_stop_callback = pl.callbacks.EarlyStopping(
+        monitor="train_loss",
+        patience=100,
+        mode="min"
+    )
+    if wandb_logging:
+        wandb_logger = pl.loggers.WandbLogger(
+            name=experiment_name,
+            project="experiments_last_paper_fusion_x2"
+        )
+    else:
+        wandb_logger = None
+
+    # Define the trainer
+    trainer = pl.Trainer(
+        accelerator="gpu",
+        devices=[int(device.split(":")[1])],
+        max_epochs=max_epochs,
+        log_every_n_steps=100,
+        callbacks=[checkpoint_callback, early_stop_callback],
+        precision=16,
+        logger=wandb_logger,
+        enable_progress_bar=False
+    )
+
+    # restart training with no early stopping
+    dataset = DataModule(datapath, batch_size, dataloader_cpu_workers)
+    trainer.fit(sr_model_lit, datamodule=dataset)
+    trainer.test(sr_model_lit, datamodule=dataset)
+
+    # Clean and save the model
+    weights = utils.clean_model(
+        path=checkpoint_path + experiment_name + ".ckpt",
+        output_path=modeloutput_path,
+    )
+
+if __name__ == "__main__":
+    app()
+    
+    
+utils.py:
+
+import pathlib
+
+import torch
+
+
+def clean_model(path: pathlib.Path, output_path: pathlib.Path):
+    path = pathlib.Path(path)
+    output_path = pathlib.Path(output_path)
+    data = torch.load(path)
+    if path.exists():
+        weights = data["state_dict"]
+        # remove the loss weights
+        for key in list(weights.keys()):
+            if "loss" in key:
+                del weights[key]
+        weights = {k.replace("model.", ""): v for k, v in weights.items()}
+    hyperparameters_params = [
+        "epoch",
+        "global_step",
+        "pytorch-lightning_version",
+        "loops",
+        "callbacks",
+        "lr_schedulers",
+    ]
+
+    hyperparameters = dict()
+    for key in hyperparameters_params:
+        if key in data.keys():
+            hyperparameters[key] = data[key]
+
+    # save the weights
+    output_path.mkdir(parents=True, exist_ok=True)
+    torch.save(weights, output_path / (path.stem + ".pth"))
+    torch.save(hyperparameters, output_path / (path.stem + "_hyperparameters.pth"))
+
+    return weights
+
+
+def load_model(model_name: str, model_size: str):
+    if model_name == "cnn":
+        from models.cnn import CNNSR as SRmodel
+
+        if model_size == "lightweight":
+            from experimentsx2 import cnn_lightweight as model_params
+        if model_size == "small":
+            from experimentsx2 import cnn_small as model_params
+        elif model_size == "medium":
+            from experimentsx2 import cnn_medium as model_params
+        elif model_size == "expanded":
+            from experimentsx2 import cnn_expanded as model_params
+        elif model_size == "large":
+            from experimentsx2 import cnn_large as model_params
+        sr_model = SRmodel(**model_params)
+    elif model_name == "swin":
+        from models.swin import Swin2SR as SRmodel
+
+        if model_size == "lightweight":
+            from experimentsx2 import swin_lightweight as model_params
+        if model_size == "small":
+            from experimentsx2 import swin_small as model_params
+        elif model_size == "medium":
+            from experimentsx2 import swin_medium as model_params
+        elif model_size == "expanded":
+            from experimentsx2 import swin_expanded as model_params
+        elif model_size == "large":
+            from experimentsx2 import swin_large as model_params
+        sr_model = SRmodel(**model_params)
+    elif model_name == "mamba":
+        from models.mamba import MambaSR as SRmodel
+
+        if model_size == "lightweight":
+            from experimentsx2 import mamba_lightweight as model_params
+        if model_size == "small":
+            from experimentsx2 import mamba_small as model_params
+        elif model_size == "medium":
+            from experimentsx2 import mamba_medium as model_params
+        elif model_size == "expanded":
+            from experimentsx2 import mamba_expanded as model_params
+        elif model_size == "large":
+            from experimentsx2 import mamba_large as model_params
+        sr_model = SRmodel(**model_params)
+    else:
+        raise ValueError("Model not found")
+
+    return sr_model
+
+def load_loss(loss_name: str, device: str):
+    if loss_name == "l1":
+        from loss import l1_loss
+        loss_fn = l1_loss()
+    elif loss_name == "superloss":
+        from loss import super_loss
+        loss_fn = super_loss(device=device)
+    elif loss_name == "adversarial":
+        raise NotImplementedError("Adversarial loss is not implemented yet")
+    else:
+        raise ValueError("Loss not found")
+
+    return loss_fn
+
+
+
+from enum import Enum
+
+class ModelName(Enum):
+    cnn = "cnn"
+    swin = "swin"
+    mamba = "mamba"
+
+class ModelSize(Enum):
+    lightweight = "lightweight"
+    small = "small"
+    medium = "medium"
+    expanded = "expanded"
+    large = "large"
+
+class LossName(Enum):
+    l1 = "l1"
+    superloss = "superloss"
+    adversarial = "adversarial"
+

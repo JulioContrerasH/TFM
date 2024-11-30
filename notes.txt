@@ -1,0 +1,3 @@
+Mira todo este contexto, pues es el marco teorico combinado con antecedentes que fundamentan todo lo planteado, pero m
+
+mi tesis va de realizar fusión de imágenes de sentinel2 (superresolución), SISR, apartir de degradar imágenes sentinel-2 o sea con solo sentinel blurreando o degrando imágenes para recuperar su resolución y así se entrenan dos modelos de fusión x2 y x4, en el x4 si se quiere se utiliza imágenes sinteticas de superresolución de sentinel 2 y NAIP (con modelos de superresolución con MAMBA, CNN, SWIN, y otros) y así se lograria tener imágenes de 2.5m, pero me enfoco en el modelo de fusión como tal, que usa CNN en realidad. 
