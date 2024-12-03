@@ -1,0 +1,137 @@
+\babel@toc {spanish}{}\relax 
+\contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Motivation}{3}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Problem Statement}{3}{section.1.2}%
+\contentsline {section}{\numberline {1.3}Estructura del Trabajo}{5}{section.1.3}%
+\contentsline {chapter}{\numberline {2}Contexto y estado del arte}{8}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Procesamiento de imágenes satelitales}{8}{section.2.1}%
+\contentsline {subsection}{\numberline {2.1.1}Historia y avances tecnológicos (1970s-1990s)}{8}{subsection.2.1.1}%
+\contentsline {subsection}{\numberline {2.1.2}Constelaciones y democratización del acceso (2000s-Presente)}{8}{subsection.2.1.2}%
+\contentsline {subsection}{\numberline {2.1.3}Tendencias actuales y desafíos}{10}{subsection.2.1.3}%
+\contentsline {subsection}{\numberline {2.1.4}Aplicaciones}{11}{subsection.2.1.4}%
+\contentsline {subsubsection}{\numberline {2.1.4.1}Agricultura de precisión}{11}{subsubsection.2.1.4.1}%
+\contentsline {subsubsection}{\numberline {2.1.4.2}Gestión de recursos naturales}{11}{subsubsection.2.1.4.2}%
+\contentsline {subsubsection}{\numberline {2.1.4.3}Respuesta a emergencias}{11}{subsubsection.2.1.4.3}%
+\contentsline {subsection}{\numberline {2.1.5}Desafíos}{12}{subsection.2.1.5}%
+\contentsline {subsubsection}{\numberline {2.1.5.1}Resolución espacial y temporal}{12}{subsubsection.2.1.5.1}%
+\contentsline {subsubsection}{\numberline {2.1.5.2}Ruido y efectos atmosféricos}{12}{subsubsection.2.1.5.2}%
+\contentsline {subsubsection}{\numberline {2.1.5.3}Fusión de datos multisensor}{12}{subsubsection.2.1.5.3}%
+\contentsline {subsubsection}{\numberline {2.1.5.4}Manejo de grandes volúmenes de datos}{12}{subsubsection.2.1.5.4}%
+\contentsline {subsubsection}{\numberline {2.1.5.5}Accesibilidad y costo}{12}{subsubsection.2.1.5.5}%
+\contentsline {section}{\numberline {2.2}Armonización de datos}{13}{section.2.2}%
+\contentsline {subsection}{\numberline {2.2.1}La misión Sentinel-2}{13}{subsection.2.2.1}%
+\contentsline {subsubsection}{\numberline {2.2.1.1}Resolución espacial}{13}{subsubsection.2.2.1.1}%
+\contentsline {subsubsection}{\numberline {2.2.1.2}Resolución espectral}{14}{subsubsection.2.2.1.2}%
+\contentsline {subsubsection}{\numberline {2.2.1.3}Resolución temporal}{14}{subsubsection.2.2.1.3}%
+\contentsline {subsubsection}{\numberline {2.2.1.4}Resolución temporal}{14}{subsubsection.2.2.1.4}%
+\contentsline {subsubsection}{\numberline {2.2.1.5}Niveles de procesamiento}{14}{subsubsection.2.2.1.5}%
+\contentsline {paragraph}{L1C}{14}{paragraph*.3}%
+\contentsline {paragraph}{L2A}{15}{paragraph*.4}%
+\contentsline {paragraph}{Elección}{15}{paragraph*.5}%
+\contentsline {subsection}{\numberline {2.2.2}Conjuntos de datos para superresolución}{16}{subsection.2.2.2}%
+\contentsline {subsubsection}{\numberline {2.2.2.1}OpenImages}{16}{subsubsection.2.2.2.1}%
+\contentsline {subsubsection}{\numberline {2.2.2.2}NAIP}{16}{subsubsection.2.2.2.2}%
+\contentsline {subsubsection}{\numberline {2.2.2.3}Sen2Venus}{17}{subsubsection.2.2.2.3}%
+\contentsline {subsubsection}{\numberline {2.2.2.4}Sentinel-2 degradado}{17}{subsubsection.2.2.2.4}%
+\contentsline {subsection}{\numberline {2.2.3}Resolución Espacial Efectiva}{18}{subsection.2.2.3}%
+\contentsline {subsubsection}{\numberline {2.2.3.1}Modulation Transfer Function (MTF)}{20}{subsubsection.2.2.3.1}%
+\contentsline {subsubsection}{\numberline {2.2.3.2}MTF en Sentinel-2}{21}{subsubsection.2.2.3.2}%
+\contentsline {subsubsection}{\numberline {2.2.3.3}MTF y fusión de imágenes}{22}{subsubsection.2.2.3.3}%
+\contentsline {subsubsection}{\numberline {2.2.3.4}MTF y modelos de aprendizaje profundo}{22}{subsubsection.2.2.3.4}%
+\contentsline {subsection}{\numberline {2.2.4}Corregistro espacial}{22}{subsection.2.2.4}%
+\contentsline {subsubsection}{\numberline {2.2.4.1}Estrategias}{23}{subsubsection.2.2.4.1}%
+\contentsline {paragraph}{Enfoque global}{23}{paragraph*.10}%
+\contentsline {paragraph}{Enfoque local}{23}{paragraph*.11}%
+\contentsline {paragraph}{Fusión de técnicas}{23}{paragraph*.12}%
+\contentsline {subsubsection}{\numberline {2.2.4.2}Métodos de alineación}{23}{subsubsection.2.2.4.2}%
+\contentsline {paragraph}{AROSICS}{23}{paragraph*.13}%
+\contentsline {paragraph}{Framework MuRA}{24}{paragraph*.14}%
+\contentsline {paragraph}{ShiftNet}{24}{paragraph*.15}%
+\contentsline {subsection}{\numberline {2.2.5}Relación entre bandas de Sentinel-2}{24}{subsection.2.2.5}%
+\contentsline {subsubsection}{\numberline {2.2.5.1}Modelado de relaciones entre bandas}{24}{subsubsection.2.2.5.1}%
+\contentsline {subsubsection}{\numberline {2.2.5.2}Evaluación de modelos de superresolución}{25}{subsubsection.2.2.5.2}%
+\contentsline {section}{\numberline {2.3}Superresolución de imágenes satelitales}{25}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}Propósito}{26}{subsection.2.3.1}%
+\contentsline {subsubsection}{\numberline {2.3.1.1}Tareas}{26}{subsubsection.2.3.1.1}%
+\contentsline {paragraph}{Recuperación espectral}{26}{paragraph*.16}%
+\contentsline {paragraph}{Colorización de imágenes}{26}{paragraph*.17}%
+\contentsline {paragraph}{Compresión espectral}{26}{paragraph*.18}%
+\contentsline {subsubsection}{\numberline {2.3.1.2}Retos actuales}{26}{subsubsection.2.3.1.2}%
+\contentsline {subsection}{\numberline {2.3.2}Métodos tradicionales}{26}{subsection.2.3.2}%
+\contentsline {subsubsection}{\numberline {2.3.2.1}Interpolación}{27}{subsubsection.2.3.2.1}%
+\contentsline {subsubsection}{\numberline {2.3.2.2}Transformaciones de frecuencia}{27}{subsubsection.2.3.2.2}%
+\contentsline {subsubsection}{\numberline {2.3.2.3}Enfoques iterativos}{27}{subsubsection.2.3.2.3}%
+\contentsline {subsubsection}{\numberline {2.3.2.4}Limitaciones de los métodos tradicionales}{27}{subsubsection.2.3.2.4}%
+\contentsline {subsection}{\numberline {2.3.3}Métodos basados en aprendizaje profundo}{28}{subsection.2.3.3}%
+\contentsline {subsubsection}{\numberline {2.3.3.1}Superresolución de Imagen Única (SISR)}{28}{subsubsection.2.3.3.1}%
+\contentsline {paragraph}{Redes Neuronales Convolucionales (CNN)}{28}{paragraph*.19}%
+\contentsline {paragraph}{Redes Generativas Adversarias (GAN)}{29}{paragraph*.20}%
+\contentsline {subparagraph}{Redes basadas en Atención y GAN combinadas}{29}{subparagraph*.21}%
+\contentsline {paragraph}{Autoencoders (AE)}{29}{paragraph*.22}%
+\contentsline {paragraph}{Mecanismos de Atención}{30}{paragraph*.23}%
+\contentsline {subparagraph}{Mecanismos de Atención Ligeros}{30}{subparagraph*.24}%
+\contentsline {subparagraph}{El Modelo Propuesto: SPAN}{30}{subparagraph*.25}%
+\contentsline {subsubsection}{\numberline {2.3.3.2}Superresolución Multi-Imagen (MISR)}{31}{subsubsection.2.3.3.2}%
+\contentsline {paragraph}{Técnicas de fusión}{31}{paragraph*.26}%
+\contentsline {paragraph}{Ventajas y desafíos}{31}{paragraph*.27}%
+\contentsline {subsubsection}{\numberline {2.3.3.3}Comparación entre SISR y MISR}{31}{subsubsection.2.3.3.3}%
+\contentsline {subsection}{\numberline {2.3.4}Protocolo de Wald}{31}{subsection.2.3.4}%
+\contentsline {subsubsection}{\numberline {2.3.4.1}Criterios del Protocolo de Wald}{32}{subsubsection.2.3.4.1}%
+\contentsline {subsubsection}{\numberline {2.3.4.2}Procedimientos de evaluación}{32}{subsubsection.2.3.4.2}%
+\contentsline {subsubsection}{\numberline {2.3.4.3}Métricas principales}{32}{subsubsection.2.3.4.3}%
+\contentsline {paragraph}{Optimización}{33}{paragraph*.28}%
+\contentsline {chapter}{\numberline {3}Objetivos y metodología de trabajo}{34}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Objetivo General}{34}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Objetivos Específicos}{34}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Metodología de trabajo}{34}{section.3.3}%
+\contentsline {chapter}{\numberline {4}Obtención y preprocesamiento de los datos}{36}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Selección de imágenes}{36}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}Imágenes sin nubes}{36}{subsection.4.1.1}%
+\contentsline {subsection}{\numberline {4.1.2}Heterogeneidad espectral}{37}{subsection.4.1.2}%
+\contentsline {section}{\numberline {4.2}Área de aplicación}{38}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Preprocesamiento de los datos}{39}{section.4.3}%
+\contentsline {subsection}{\numberline {4.3.1}Datos de entrenamiento}{39}{subsection.4.3.1}%
+\contentsline {subsection}{\numberline {4.3.2}Datos de prueba}{39}{subsection.4.3.2}%
+\contentsline {subsection}{\numberline {4.3.3}Tratamiento de las bandas}{39}{subsection.4.3.3}%
+\contentsline {section}{\numberline {4.4}Evaluación de los modelos de fusión}{40}{section.4.4}%
+\contentsline {subsection}{\numberline {4.4.1}Red Neuronal Convolucional con Bloques SPAN}{40}{subsection.4.4.1}%
+\contentsline {subsection}{\numberline {4.4.2}Filtrado en el dominio de Fourier con Hard Constraint}{41}{subsection.4.4.2}%
+\contentsline {subsection}{\numberline {4.4.3}Fusión x2: mejora de resolución intermedia}{42}{subsection.4.4.3}%
+\contentsline {subsubsection}{\numberline {4.4.3.1}Ajustes y redimensionado de bandas}{42}{subsubsection.4.4.3.1}%
+\contentsline {subsubsection}{\numberline {4.4.3.2}Componentes}{42}{subsubsection.4.4.3.2}%
+\contentsline {paragraph}{Input (Entrada)}{42}{paragraph*.34}%
+\contentsline {paragraph}{Objetivo (Target)}{43}{paragraph*.35}%
+\contentsline {paragraph}{Salida}{43}{paragraph*.36}%
+\contentsline {subsubsection}{\numberline {4.4.3.3}Filtrado en el dominio de Fourier}{43}{subsubsection.4.4.3.3}%
+\contentsline {subsubsection}{\numberline {4.4.3.4}Configuración del modelo}{44}{subsubsection.4.4.3.4}%
+\contentsline {subsubsection}{\numberline {4.4.3.5}Función de pérdida y entrenamiento}{46}{subsubsection.4.4.3.5}%
+\contentsline {subsection}{\numberline {4.4.4}Fusión x4: mejora de resolución a nivel fino}{47}{subsection.4.4.4}%
+\contentsline {subsubsection}{\numberline {4.4.4.1}Ajustes en la preparación de datos}{48}{subsubsection.4.4.4.1}%
+\contentsline {paragraph}{Bandas de 10 metros}{48}{paragraph*.39}%
+\contentsline {paragraph}{Bandas de 20 metros}{48}{paragraph*.40}%
+\contentsline {paragraph}{Bandas de 40 metros}{48}{paragraph*.41}%
+\contentsline {subsubsection}{\numberline {4.4.4.2}Definición de entrada, objetivo y salida}{48}{subsubsection.4.4.4.2}%
+\contentsline {subsubsection}{\numberline {4.4.4.3}Filtrado en el dominio de Fourier}{49}{subsubsection.4.4.4.3}%
+\contentsline {subsubsection}{\numberline {4.4.4.4}Configuración del modelo}{49}{subsubsection.4.4.4.4}%
+\contentsline {subsubsection}{\numberline {4.4.4.5}Integración con el modelo de Fusión x2}{51}{subsubsection.4.4.4.5}%
+\contentsline {subsubsection}{\numberline {4.4.4.6}Implementación del filtrado con \textit {Hard Constraint}}{52}{subsubsection.4.4.4.6}%
+\contentsline {subsubsection}{\numberline {4.4.4.7}Función de pérdida y entrenamiento}{53}{subsubsection.4.4.4.7}%
+\contentsline {subsubsection}{\numberline {4.4.4.8}Análisis de la pérdida de testeo}{55}{subsubsection.4.4.4.8}%
+\contentsline {subsubsection}{\numberline {4.4.4.9}Optimización de la inferencia mediante combinación de convoluciones}{56}{subsubsection.4.4.4.9}%
+\contentsline {paragraph}{Combinación de convoluciones en \texttt {Conv3XC}}{56}{paragraph*.46}%
+\contentsline {paragraph}{Optimización en inferencia}{57}{paragraph*.47}%
+\contentsline {paragraph}{Beneficios de la optimización}{58}{paragraph*.48}%
+\contentsline {paragraph}{Implementación práctica}{58}{paragraph*.49}%
+\contentsline {chapter}{\numberline {5}Identificación de Requisitos}{60}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Trabajo Previo Realizado}{62}{section.5.1}%
+\contentsline {subsection}{\numberline {5.1.1}Identificación del Problema}{62}{subsection.5.1.1}%
+\contentsline {subsection}{\numberline {5.1.2}Contexto de Uso}{62}{subsection.5.1.2}%
+\contentsline {chapter}{\numberline {6}Descripción de la Herramienta Software Desarrollada}{63}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Detalles del Proceso de Desarrollo}{63}{section.6.1}%
+\contentsline {subsection}{\numberline {6.1.1}Fases del Desarrollo}{63}{subsection.6.1.1}%
+\contentsline {subsection}{\numberline {6.1.2}Diagramas de Flujo y Arquitectura}{63}{subsection.6.1.2}%
+\contentsline {subsection}{\numberline {6.1.3}Capturas de Pantalla}{63}{subsection.6.1.3}%
+\contentsline {chapter}{\numberline {7}Evaluación}{65}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Usabilidad de la Herramienta}{65}{section.7.1}%
+\contentsline {section}{\numberline {7.2}Aplicabilidad al Problema Propuesto}{65}{section.7.2}%
+\contentsline {chapter}{References}{66}{chapter*.52}%

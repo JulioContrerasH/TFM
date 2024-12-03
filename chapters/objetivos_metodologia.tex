@@ -16,121 +16,165 @@
 
 \section{Metodología de trabajo}
 
-    Este trabajo emplea un enfoque de fusión en dos etapas: \textbf{Fusión x2} y \textbf{Fusión x4}, para mejorar la resolución espacial de imágenes satelitales Sentinel-2. Estas etapas permiten una transición progresiva desde resoluciones originales de \textit{10} y \textit{20 metros} a una resolución final de \textit{2.5 metros}, manteniendo la integridad espectral y espacial de los datos.
+    El desarrollo del presente trabajo de investigación o TFM se evaluó en diferentes fases secuenciales:
 
-    Las bandas multiespectrales, con resoluciones originales diferentes, se procesan de manera diferenciada en cada etapa de fusión. Este enfoque asegura que la metodología capture y preserve tanto los detalles espaciales como las características espectrales del entorno observado.
+    - Fase 0: Identificación  del problema (dataset regionales, modelos sin parámetros)
+    - Fase 1: Recolección de datos CloudSEN12.
+    - Fase 2: Definición de los modelos de fusión CNN (menos a más parámetros)
+    - Fase 3: Implementación de los modelos de superresolución (evaluar que nombre colocarle) - imágenes sin referencia.
+    - Fase 4: Estudios de resultados y conclusioens
 
 
-    \subsection{Obtención y procesamiento de los datos}
 
-        Para el desarrollo de este proyecto, se utiliza el conjunto de datos \textit{CloudSEN12} de \textcite{aybar2024cloudsen12+}, un dataset global diseñado para la comprensión semántica de nubes y sombras de nubes en imágenes Sentinel-2. Este conjunto es accesible a través de Hugging Face, siguiendo los pasos indicados en este \href{https://colab.research.google.com/drive/10QqUk-4pP6lZHj1I9GfMpzDY-cd0Fdza?usp=sharing}{\textit{Colab} público} e incluye un total de \textit{49,400} imágenes en formato \textit{Level-1C} (TOA), de las cuales se seleccionan \textit{10,440} imágenes libres de nubes.
+    \begin{figure}[H] 
+        \caption{\doublespacing \\ \textit{Flujo de trabajo.}} 
+        \centering
+        \includegraphics[width=1\linewidth]{images/cap3/modelo.png}
+        \begin{justify}
+            \textit{Nota.} Se muestra el flujo del trabajo, desde la obtención de los datos hasta la evaluación de los modelos propuestos.
+        \end{justify}                    
+        \label{fig:modelo}
+    \end{figure}
+
+    En la Figura \ref{fig:modelo} se observa un flujo de trabajo, en como se generá la solución para la superresolución intermadia y final.
+
+
+
+
+
+\chapter{Obtención y preprocesamiento de los datos}
+    
+CloudSEN12 de \textcite{aybar2024cloudsen12+} es un conjunto de datos global diseñado para la detección de nubes y sombras en imágenes satélites Sentinel-2. Es accesible a través de Hugging Face, siguiendo los pasos indicados en este \href{https://colab.research.google.com/drive/10QqUk-4pP6lZHj1I9GfMpzDY-cd0Fdza?usp=sharing}{Colab} e incluye un total de 49,400 imágenes en formato Level-1C (TOA).
+        
+
+\section{Selección de la muestra}
+
+    Se seleccionaron 10,440 imágenes libres de nubes del conjunto de datos mencionado, cuya distribución global se presenta en la Figura \ref{fig:muestra_cloudsen12}.
+
+    \subsection{Imágenes sin nubes}
+
+        La presencia de nubes en imágenes satelitales afecta la consistencia espectral necesaria para analizar con precisión las características reales de la superficie.  Según \textcite{li2023transformer}, trabajar con imágenes sin nubes evita reconstrucciones adicionales y mejora la fiabilidad del análisis. Por ello, este estudio utilizó exclusivamente imágenes libres de nubosidad. 
+        
+        \begin{figure}[H] 
+            \caption{\doublespacing \\ \textit{Imágenes sin nubes de CloudSEN12}} 
+            \centering
+            \includegraphics[width=1\linewidth]{images/cap4/muestra_cloudsen12.png}
+            \begin{justify}
+                \textit{Nota.} Estas imágenes representan su heterogeneidad espectral por las diversas ubicaciones a nivel mundial y heterogeneidad de la superficie terrestre. Elaboración propia.
+            \end{justify}                    
+            \label{fig:muestra_cloudsen12}
+        \end{figure}
+
+    \subsection{Heterogeneidad espectral}
+
+        Uno de los elementos que determinan la selección de imágenes de ClouSEN12 es su variedad espectral a escala mundial. Siguiendo las sugerencias de investigaciones como \textcite{jiao2023integrated}, la elección de áreas con gran diversidad espectral, evitando zonas uniformes como los océanos y las regiones polares, potencia la habilidad del modelo para capturar una mayor diversidad de patrones espectrales.
+
+
+\section{Área de aplicación}
+
+    Se elige a Valencia como zona de estudio para analizar cómo la superresolución potencia la identificación de inundaciones. Esta zona, susceptible a sucesos extremos como un DANA (octubre, 2024), constituye un contexto apropiado para examinar el efecto de la superresolución de imágenes y cómo esta optimiza las labores de supervisión y administración de catástrofes.
+        
+    \begin{figure}[H] 
+        \caption{\doublespacing \\ \textit{Área de aplicación: ciudad de Valencia}} 
+        \centering
+        \includegraphics[width=1\linewidth]{images/mapa_valencia.png}
+        \begin{justify}
+            \textit{Nota.} Se muestran las ubicaciones de las imágenes sin nubes del proyecto CloudSEN12 en zonas de alta heterogeneidad espectral a nivel mundial, destacando la ciudad de Valencia como área de aplicación para evaluar la mejora en taras como detección de inundaciones mediante índices de humedad. Elaboración propia.
+        \end{justify}                    
+        \label{fig:mapa_valencia}
+    \end{figure}
+
+\section{Preprocesamiento de los datos}
+
+    Inicialmente, las imágenes poseen una resolución uniforme de 10 metros, producto del remuestreo del vecino más cercano (nearest neighbor) que utiliza Google Earth Engine (proveedor inicial de los datos). Esto implica que, aunque las bandas originales de 20m también se encuentran a 10m, su contenido espectral no mejore o aumente. Este procedimiento asegura la integración de datos en el modelo, manteniendo la misma resolución espacial para todas las bandas.
+
+    \subsection{Datos de entrenamiento}
+
+        Durante el entrenamiento, para fomentar la generalización y prevenir el \textit{overfitting}, se aplica un muestreo aleatorio que selecciona porciones distintas de las imágenes en cada época. Los lotes de datos se reorganizan en cada iteración, evitando que el modelo dependa de un orden específico y fortaleciendo su capacidad de generalización.
+    
+    \subsection{Datos de prueba}
+
+        Para los datos de prueba, se extrae una porción central de cada imagen y los datos se presentan en un orden fijo, garantizando evaluaciones consistentes y reproducibles, libres de la variabilidad introducida por el muestreo aleatorio.
+
+    \subsection{Tratamiento de las bandas}
+        
+        Las bandas de 10m (RGB y NIR: bandas 2, 3, 4 y 8) se utilizan como referencia para enriquecer la información espacial y espectral durante las etapas de fusión. Dependiendo de la fase, estas bandas se mantienen en su resolución original o se escalan para integrarse con las de mayor resolución.
+
+        Por otro lado, las bandas de 20m (bandas 5, 6, 7, 8A, 11 y 12), que proporcionan información clave sobre el borde rojo y el infrarrojo de onda corta, se ajustan a 10m mediante interpolación bilineal con antialiasing, asegurando una integración precisa y consistente en las fases de fusión.
+
+
+Luego del tratamiento de datos.... A continuación, se describen los elementos clave de la metodología aplicada en el proceso.
+
+
+\section{Evaluación de los modelos de fusión}
+
+    En esta investigación, se emplea un método de fusión en dos fases: de 40m a 20m (fusión x2) y de 40m a 10m (fusión x4). Este enfoque permite una transición gradual en las resoluciones espaciales, alcanzando niveles de detalle de 10m y 2.5m en todas las bandas.
+
+    Durante cada etapa de fusión, las bandas originales de 10m y 20m se procesan de forma diferenciada, garantizando la preservación tanto de la información espectral como de los detalles espaciales. Este procedimiento asegura una integración eficiente de las características relevantes en cada resolución.
+
+    \subsection{Red Neuronal Convolucional con Bloques SPAN}      
+        
+        Los Bloques de Atención Auto-Parametrizados (SPAB) dentro de la arquitectura de la red neuronal convolucional. permiten al modelo aprender a realzar características importantes sin añadir parámetros adicionales, permiten al modelo enfocarse en áreas de la imagen que requieren mayor detalle.
+
+        Cada SPAB contiene módulos convolucionales personalizados llamados \texttt{Conv3XC}, capturan características complejas mediante una serie de operaciones convolucionales y conexiones residuales. La estructura del bloque \texttt{Conv3XC} se detalla a continuación:
+
+        \begin{enumerate}
+            \item \textbf{Primera convolución}: Aumenta la dimensionalidad de las características de entrada.
+            \item \textbf{Segunda convolución}: Aplica una convolución 3x3 para capturar patrones locales y detalles finos.
+            \item \textbf{Tercera convolución}: Reduce la dimensionalidad a la cantidad deseada de canales de salida.
+            \item \textbf{Conexión residual}: Convolución 1x1 que conecta la entrada directamente con la salida del bloque, facilitando el flujo de gradientes y mejorando el aprendizaje.
+        \end{enumerate}
+
+        Se usan funciones de activación simétricas como \textit{SiLU} y \textit{Leaky ReLU} que permiten una mejor representación de las características no lineales de la imagen.
+
+        La Figura~\ref{fig:span} muestra la arquitectura general del modelo SPAN y el flujo interno de un bloque SPAB.
 
         \begin{figure}[H] 
-            \caption{\doublespacing \\ \textit{Área de aplicación: ciudad de Valencia}} 
+            \caption{\doublespacing \\ \textit{Arquitectura del modelo SPAN}} 
             \centering
-            \includegraphics[width=1\linewidth]{images/mapa_valencia.png}
+            \includegraphics[width=1\linewidth]{images/span.png}
             \begin{justify}
-                \textit{Nota.} Se muestran imágenes sin nubes del proyecto CloudSEN12 en zonas de alta heterogeneidad espectral que enriquecen el modelo, destacando la ciudad de Valencia como área de aplicación para evaluar la mejora en la detección de inundaciones mediante superresolución ante su reciente vulnerabilidad a eventos extremos como un DANA (octubre, 2024). Elaboración propia.
+                \textit{Nota. Se ilustran los bloques SPAB y los módulos \texttt{Conv3XC} que extraen características mediante convoluciones y conexiones residuales. La sección ampliada muestra el flujo interno de un bloque SPAB, donde la atención se genera de forma libre de parámetros mediante funciones de activación simétricas, maximizando la representación de características relevantes sin añadir parámetros adicionales. Recuperado de \textcite{wan2024swiftparameterfreeattentionnetwork}.} 
             \end{justify}                    
-            \label{fig:mapa_valencia}
+            \label{fig:span}
+        \end{figure}      
+       
+    \subsection{Filtrado en el dominio de Fourier con Hard Constraint}
+
+        El filtrado en el dominio de Fourier es esencial para preservar los detalles finos de las imágenes de mayor resolución (componentes de alta frecuencia) y retener solo las bajas frecuencias de las imágenes de menor resolución. Para lograr esto, se utiliza un Hard Constraint basado en un filtro Butterworth de orden 6, ajustado según el factor de escala correspondiente a cada etapa de fusión.
+
+        \begin{figure}[H] 
+            \caption{\doublespacing \\ \textit{Fusión de la imagen de referencia y la imagen de entrada mediante filtrado en el dominio de Fourier}} 
+            \centering
+            \includegraphics[width=1\linewidth]{images/hr_lr_fusion.png}
+            \begin{justify}
+                \textit{Nota. Imagen referencial, ya que el HR no es NAIP en este caso} 
+            \end{justify}                    
+            \label{fig:hr_lr_fusion}
         \end{figure}
-        
-        \subsubsection{Preprocesamiento de los datos}
-
-            Las imágenes, que contienen bandas de 10 y 20 metros, provienen del conjunto de datos \textit{CloudSEN12}, donde fueron descargadas con una resolución uniforme de 10 metros, utilizando el método de remuestreo de vecino más cercano (\textit{nearest neighbor}) desde Google Earth Engine (\textit{GEE}). Este proceso asegura la consistencia espacial necesaria para la integración multiespectral.
-
-        \subsubsection{Imágenes sin nubes}
-
-            El uso de imágenes libres de nubes garantiza que el modelo analice exclusivamente las características reales de la superficie terrestre. Esto elimina la necesidad de reconstrucciones adicionales, comunes en áreas con nubes, y mejora la fiabilidad del análisis multiespectral, como señala \textcite{li2023transformer}.
-
-        \subsubsection{Heterogeneidad espectral}
-
-            La selección de regiones con alta diversidad espectral, evitando áreas homogéneas como océanos y zonas polares, enriquece el conjunto de datos. Este enfoque fortalece la capacidad del modelo para capturar una mayor variedad de patrones espectrales, siguiendo recomendaciones de estudios como \textcite{jiao2023integrated}.
-
-        \subsubsection{Selección del área de aplicación}
-
-            La ciudad de Valencia se selecciona como área de aplicación para evaluar cómo la superresolución mejora la detección de inundaciones. Esta región, vulnerable a eventos extremos como un DANA (octubre, 2024), representa un escenario adecuado para analizar el impacto de esta metodología en tareas prácticas de monitoreo y gestión de desastres.
-
-
-    \subsection{Metodología general para la fusión}
-
-        En ambas etapas de fusión se siguen procedimientos similares en cuanto a la preparación de datos, el filtrado en el dominio de Fourier y el uso de mecanismos de atención mediante SPAN (\textit{Self-parameterized Attention Network}). A continuación, se describen los elementos clave de la metodología aplicada en el proceso.
-
-
-        \subsubsection{Preparación de datos}
-
-            La preparación de datos garantiza la alineación y normalización de las bandas de diferentes resoluciones, facilitando su integración como entrada en el modelo. La normalización se realiza dividiendo los valores de los píxeles entre \textit{10,000}, ajustando el rango de datos y mejorando la estabilidad durante el entrenamiento.
-
-            Durante el entrenamiento, para fomentar la generalización y prevenir el \textit{overfitting}, se aplica un muestreo aleatorio que selecciona porciones distintas de las imágenes en cada época. Los lotes de datos se reorganizan en cada iteración, evitando que el modelo dependa de un orden específico y fortaleciendo su capacidad de generalización.
-            
-            En la fase de prueba, se extrae una porción central de cada imagen y los datos se presentan en un orden fijo, garantizando evaluaciones consistentes y reproducibles, libres de la variabilidad introducida por el muestreo aleatorio.
-
-            \paragraph{Bandas de referencia}
-
-                Las bandas de 10 metros, correspondientes a las regiones espectrales del espectro visible (RGB) y NIR (bandas 2, 3, 4 y 8), sirven como referencia para enriquecer la información espacial y espectral en ambas etapas de fusión. Según el requerimiento de cada etapa, estas bandas se usan en su resolución original o se escalan para integrarse con otras bandas.
-
-
-            \paragraph{Bandas ajustadas}
-
-                Las bandas de 20 metros (bandas 5, 6, 7, 8A, 11 y 12) aportan información clave del borde rojo y el infrarrojo de onda corta. Su resolución viene ajustada a 10 metros mediante interpolación bilineal con antialiasing, asegurando una integración precisa en cada etapa de fusión.
-
-        \subsubsection{Filtrado en el dominio de Fourier}
-
-            Para separar los componentes de alta y baja frecuencia y optimizar el procesamiento de la imagen, se emplea un filtro en el dominio de Fourier. Se utiliza un filtro Butterworth de orden 6, ajustado según el factor de escala específico de cada etapa, para definir un radio de frecuencia en la máscara de paso bajo. Este procedimiento preserva los detalles esenciales mientras se atenúan las frecuencias no deseadas, garantizando una representación equilibrada entre la estructura global y los detalles finos.
-
-        \subsubsection{Arquitectura del modelo y SPAN}
-
-            El modelo de super-resolución se basa en una arquitectura de red neuronal convolucional que incorpora bloques de atención auto-parametrizados SPAB (\textit{Self-parameterized Attention Blocks}). Estos bloques permiten al modelo enfocarse en áreas de la imagen que requieren mayor detalle, mejorando la calidad de la imagen fusionada.
-
-            Dentro de cada SPAB, se utilizan módulos convolucionales personalizados denominados \texttt{Conv3XC}. Estos módulos están diseñados para capturar características complejas de la imagen mediante una serie de operaciones convolucionales y conexiones residuales. La estructura del bloque \texttt{Conv3XC} es la siguiente:
-
-            \begin{enumerate}
-                \item \textbf{Primera convolución}: Convierte las características de entrada a un espacio intermedio de mayor dimensionalidad.
-                \item \textbf{Segunda convolución}: Aplica una convolución con un kernel de tamaño 3x3 para capturar patrones locales y detalles finos.
-                \item \textbf{Tercera convolución}: Reduce la dimensionalidad de las características al número deseado de canales de salida.
-                \item \textbf{Conexión residual}: Una convolución 1x1 que conecta directamente la entrada con la salida del bloque, facilitando el flujo de gradientes y mejorando la capacidad de aprendizaje.
-            \end{enumerate}
-
-            Estas operaciones permiten al modelo aprender representaciones profundas y detalladas de las imágenes, capturando tanto la información global como los detalles locales. Las activaciones utilizadas incluyen funciones como \textit{SiLU} y \textit{Leaky ReLU}, que contribuyen a una mejor representación de las características no lineales de la imagen.
-
-            La Figura~\ref{fig:span} ilustra la arquitectura general del modelo y el flujo interno dentro de un bloque SPAB.
-
-            \begin{figure}[H]
-                \centering
-                \includegraphics[width=1\linewidth]{images/span.png}
-                \caption{Arquitectura del modelo SPAN, que muestra la secuencia de bloques de atención auto-parametrizados (SPAB) y los módulos convolucionales personalizados (\texttt{Conv3XC}) utilizados para extraer características a través de convoluciones y conexiones residuales. La sección ampliada ilustra el flujo interno dentro de un bloque SPAB, donde la atención se genera de forma libre de parámetros mediante funciones de activación simétricas, maximizando la representación de características relevantes sin añadir parámetros adicionales. Este esquema destaca cómo el modelo integra mapas de características y mapas de atención para mejorar la resolución de la imagen de entrada. Recuperado de \textcite{wan2024swiftparameterfreeattentionnetwork}.}
-                \label{fig:span}
-            \end{figure}
-
 
     \subsection{Fusión x2: mejora de resolución intermedia}
 
-        La primera etapa, Fusión x2, se enfoca en duplicar la resolución espacial, permitiendo que las bandas de 20 metros alcancen una resolución de 10 metros. Este proceso sienta las bases para una posterior mejora en la etapa de Fusión x4, unificando la mayoría de las bandas en una resolución común y enriqueciendo la información disponible.
+            La primera etapa, Fusión x2, se enfoca en duplicar la resolución espacial de las bandas de 20m a 10m. Este proceso sienta las bases para la mejora en la fase de fusión x4, unificando las bandas en una resolución común y enriqueciendo de las bandas de 20m.
 
-        \subsubsection{Ajustes en la preparación de datos}
+        \subsubsection{Ajustes y redimensionado de bandas}
 
-            \paragraph{Bandas de 10 metros}
-
-                Estas bandas se redimensionan a una resolución espacial de 20 metros mediante interpolación bilineal con antialiasing. Este ajuste iguala su resolución con las bandas de 20 metros, permitiendo una integración coherente en el modelo y asegurando que los detalles característicos de las bandas de alta resolución se conserven.
-
-            \paragraph{Bandas de 20 metros}
-
-                Inicialmente, se reducen a una resolución de 40 metros utilizando interpolación bilineal con antialiasing. Posteriormente, se reescalan nuevamente a 20 metros aplicando el mismo método. Este proceso de reducción y ampliación facilita que las bandas mantengan coherencia espacial con las bandas de 10 metros ajustadas, preparando los datos para su procesamiento conjunto en el modelo.
+            Las bandas de 10 m se redimensionan a 20 m mediante interpolación bilineal con antialiasing para asegurar la coherencia espacial. De manera similar, las bandas de 20m se reducen a 40m y luego se reescalan a 20m, manteniendo la coherencia con las bandas de 10m.
 
 
         \subsubsection{Componentes}
    
-            \paragraph{Entrada}
+            \paragraph{Input (Entrada)}
 
-                Concatenación de las bandas de 10 metros escaladas a 20 metros y las bandas de 20 metros ajustadas. Esta combinación proporciona al modelo una fuente consistente de detalles espaciales y espectrales.
+                La entrada implica la concatenación de las bandas de 10m (que se elevan a 20m) con las bandas de 20m reducidas y reescaladas.
 
-            \paragraph{Objetivo}
+            \paragraph{Objetivo (Target)}
 
-                Las bandas originales de 20 metros sirven como referencia para el aprendizaje supervisado, permitiendo al modelo reconstruir los detalles espectrales.
+                Las bandas originales de 20 metros sirven como target para el aprendizaje supervisado, permitiendo al modelo reconstruir los detalles espectrales específicos.
 
             \paragraph{Salida}
 
-                Una representación fusionada que combina las características espectrales de las bandas de 20 metros con los detalles espaciales de las bandas de referencia, mejorando la resolución y el detalle de la imagen.
+                Una representación fusionada que combina las características espectrales de las bandas de 20 metros con los detalles espaciales de las bandas de referencia, mejorando la resolución de 40m a 20m y el detalle de la imagen.
         
             \begin{figure}[H] 
                 \caption{\doublespacing \\ \textit{Proceso de Fusión x2 en Superresolución}} 

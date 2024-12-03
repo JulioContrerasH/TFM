@@ -47,21 +47,28 @@
         
 
     \subsection{Aplicaciones}
+
         \subsubsection{Agricultura de precisión}
-            La tecnología de imágenes satelitales, proporcionada por sistemas como Sentinel-2 y Landsat, permite monitorear el estado de los cultivos, detectar estrés hídrico y estimar rendimientos agrícolas. Índices espectrales como el NDVI (\textit{Normalized Difference Vegetation Index}) identifican áreas de baja productividad y optimizan el uso de recursos, como agua y fertilizantes \autocite{griffiths2019intra, ed2020recent}. 
-            
-            Particularmente, un estudio en el sudeste asiático destacó cómo el uso combinado de Sentinel-2 y tecnologías como el SAR optimizó la gestión agrícola bajo diferentes condiciones. Por un lado, índices como el NDVI y el EVI (\textit{Enhanced Vegetation Index}) permitieron reducir el desperdicio de agua en cultivos de arroz en un 20\%, además de ajustar los tiempos de cosecha para maximizar rendimientos. Por otro lado, el SAR facilitó el monitoreo de áreas agrícolas bajo condiciones de nubosidad persistente, complementando los datos ópticos de Sentinel-2 para mejorar el análisis de humedad del suelo y el seguimiento de cultivos en zonas con alta cobertura nubosa \autocite{kaushik2021crop}.
-            
+        
+            \begin{itemize}[left=1.27cm]
+                \item Sentinel-2 y Landsat permiten monitorear cultivos, detectar estrés hídrico y estimar rendimientos agrícolas como se mostró en estudios de \textcite{griffiths2019intra, ed2020recent}.
+                \item Índices como NDVI y EVI optimizan recursos y aumentan la productividad; en el sudeste asiático, redujeron un 20\% el uso de agua en cultivos de arroz y ajustaron tiempos de cosecha \autocite{kaushik2021crop}.
+                \item El SAR complementa datos ópticos en zonas con nubosidad, mejorando el monitoreo de humedad del suelo \autocite{kaushik2021crop}.
+            \end{itemize}
+        
         \subsubsection{Gestión de recursos naturales}
-            La monitorización de recursos naturales a través de datos satelitales proporciona una supervisión continua de cuerpos de agua, recursos minerales y zonas forestales. Esto facilita estrategias de conservación basadas en evidencia científica. Por ejemplo, el programa Copernicus ha sido clave para evaluar el impacto de la deforestación en la región amazónica, permitiendo la implementación de políticas de reforestación en áreas críticas \autocite{rast2019copernicus}. 
-            
-            Además, en la gestión de cuencas hidrográficas, la integración de datos satelitales con modelos geoespaciales ha optimizado la toma de decisiones. Un ejemplo notable es el uso combinado de imágenes ópticas y radar para monitorear la calidad del agua en el río Ganges, mejorando la identificación de fuentes de contaminación y el control de flujos hídricos en tiempo real \autocite{caballero2019sentinel, lisboa2024earth}.
+            \begin{itemize}[left=1.27cm]
+                \item Datos satelitales monitorean cuerpos de agua, minerales y bosques, apoyando estrategias de conservación \autocite{rast2019copernicus}.
+                \item Copernicus evaluó el impacto de la deforestación en el Amazonas, guiando políticas de reforestación \autocite{rast2019copernicus}.
+                \item En el río Ganges, imágenes ópticas y radar identificaron fuentes de contaminación y mejoraron el control hídrico \autocite{caballero2019sentinel, lisboa2024earth}.
+            \end{itemize}
             
         \subsubsection{Respuesta a emergencias}
-            Las imágenes satelitales de alta resolución, combinadas con datos en tiempo real, son fundamentales para responder a desastres naturales como inundaciones y terremotos. Por ejemplo, durante las inundaciones en el sudeste asiático en 2021, la combinación de datos de Planet Labs y Sentinel permitió identificar áreas afectadas en menos de 48 horas, optimizando la distribución de ayuda humanitaria \autocite{matgen2020feasibility}. 
-            
-            Una aplicación destacada es el uso de Sentinel-1 para evaluar la extensión de incendios forestales mediante tecnologías de radar, incluso bajo condiciones de humo denso. Este enfoque mejora la precisión del mapeo de áreas quemadas y facilita una planificación efectiva para la recuperación de los ecosistemas \autocite{ajmar2017response}. 
-        
+            \begin{itemize}[left=1.27cm]
+                \item Durante inundaciones en 2021, Sentinel y Planet Labs identificaron áreas afectadas en menos de 48 horas, optimizando la ayuda humanitaria \autocite{matgen2020feasibility}.
+                \item Sentinel-1 mapeó áreas quemadas por incendios forestales bajo condiciones de humo denso, facilitando la recuperación ecológica \autocite{ajmar2017response}.
+            \end{itemize}
+
     \subsection{Desafíos}
         \subsubsection{Resolución espacial y temporal}
             La precisión de las aplicaciones depende de la resolución espacial y temporal de los datos. Mientras que satélites como Sentinel-2 ofrecen una resolución espacial de 10 metros, esto puede ser insuficiente para análisis detallados, como la detección de cultivos individuales. En contraste, sistemas privados como PlanetScope proporcionan imágenes con resolución de hasta 30 cm por píxel, aunque su alto costo sigue siendo una barrera para su adopción generalizada \autocite{schiavon2021monitoring}.
